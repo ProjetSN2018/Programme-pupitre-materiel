@@ -18,6 +18,10 @@ src\Kernel\shellcom.c
 
 src\Kernel\taskman.c
 
+src\Sources files\appli.c
+
+src\Sources files\LCD.c
+
 src\Sources files\main.c
 
 src\ASF\common\services\delay\sam\cycle_counter.c

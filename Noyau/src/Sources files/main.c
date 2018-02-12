@@ -48,23 +48,17 @@ int main (void)
 	Taskman(TASKMAN_NEW);
 	Shell(SHELL_NEW);
 	Putstr("\r\n\n\tATMEL ATSAM3U STARTED\r\n\n");
-
-
-
+	
 	//PushTask(Sablier, SABLIER_NEW, 0, 0);
 	//PushTask(Prompt, 0, 0, 800);
 	
 	cpu_irq_enable();
-
-
-
+	
 	for(;;)
 	{
 		PopTask();
 	}
 }
-
-
 
 void Prompt(uint32_t sc, uint32_t i)
 {

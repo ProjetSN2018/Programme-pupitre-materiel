@@ -17,23 +17,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .comment      000000b2  00000000  00000000  00020f15  2**0
                   CONTENTS, READONLY
-  7 .debug_info   00015300  00000000  00000000  00020fc7  2**0
+  7 .debug_info   000152f7  00000000  00000000  00020fc7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00003349  00000000  00000000  000362c7  2**0
+  8 .debug_abbrev 0000335b  00000000  00000000  000362be  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    00003ca2  00000000  00000000  00039610  2**0
+  9 .debug_loc    00003ca2  00000000  00000000  00039619  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00000998  00000000  00000000  0003d2b2  2**0
+ 10 .debug_aranges 00000998  00000000  00000000  0003d2bb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000008a0  00000000  00000000  0003dc4a  2**0
+ 11 .debug_ranges 000008a0  00000000  00000000  0003dc53  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  0001a9bf  00000000  00000000  0003e4ea  2**0
+ 12 .debug_macro  0001a54a  00000000  00000000  0003e4f3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0000fc46  00000000  00000000  00058ea9  2**0
+ 13 .debug_line   0000fc87  00000000  00000000  00058a3d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00064dc2  00000000  00000000  00068aef  2**0
+ 14 .debug_str    00064a0a  00000000  00000000  000686c4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00001f70  00000000  00000000  000cd8b4  2**2
+ 15 .debug_frame  00001f70  00000000  00000000  000cd0d0  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1592,30 +1592,69 @@ __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
    80a8c:	00080875 	.word	0x00080875
 
 00080a90 <main>:
+void Prompt(uint32_t sc, uint32_t i);
+
+char buf[256];
+
+int main (void)
+{
    80a90:	b508      	push	{r3, lr}
+  This function disables IRQ interrupts by setting the I-bit in the CPSR.
+  Can only be executed in Privileged modes.
+ */
+__attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_irq(void)
+{
+  __ASM volatile ("cpsid i" : : : "memory");
    80a92:	b672      	cpsid	i
+    This function ensures the apparent order of the explicit memory operations before
+    and after the instruction, without ensuring their completion.
+ */
+__attribute__( ( always_inline ) ) __STATIC_INLINE void __DMB(void)
+{
+  __ASM volatile ("dmb");
    80a94:	f3bf 8f5f 	dmb	sy
+	/* Insert system clock initialization code here (sysclk_init()). */
+		
+	cpu_irq_disable();
    80a98:	4c0d      	ldr	r4, [pc, #52]	; (80ad0 <main+0x40>)
    80a9a:	2300      	movs	r3, #0
    80a9c:	7023      	strb	r3, [r4, #0]
+	sysclk_init();
    80a9e:	4b0d      	ldr	r3, [pc, #52]	; (80ad4 <main+0x44>)
    80aa0:	4798      	blx	r3
+	board_init();
    80aa2:	4b0d      	ldr	r3, [pc, #52]	; (80ad8 <main+0x48>)
    80aa4:	4798      	blx	r3
+	delay_init(sysclk_get_cpu_hz());
+	//////////////////////////////////////////////////////////////////
+	
+	Taskman(TASKMAN_NEW);
    80aa6:	2064      	movs	r0, #100	; 0x64
    80aa8:	4b0c      	ldr	r3, [pc, #48]	; (80adc <main+0x4c>)
    80aaa:	4798      	blx	r3
+	Shell(SHELL_NEW);
    80aac:	2064      	movs	r0, #100	; 0x64
    80aae:	4b0c      	ldr	r3, [pc, #48]	; (80ae0 <main+0x50>)
    80ab0:	4798      	blx	r3
+	Putstr("\r\n\n\tATMEL ATSAM3U STARTED\r\n\n");
    80ab2:	490c      	ldr	r1, [pc, #48]	; (80ae4 <main+0x54>)
    80ab4:	2067      	movs	r0, #103	; 0x67
    80ab6:	4b0c      	ldr	r3, [pc, #48]	; (80ae8 <main+0x58>)
    80ab8:	4798      	blx	r3
+	
+	//PushTask(Sablier, SABLIER_NEW, 0, 0);
+	//PushTask(Prompt, 0, 0, 800);
+	
+	cpu_irq_enable();
    80aba:	2301      	movs	r3, #1
    80abc:	7023      	strb	r3, [r4, #0]
    80abe:	f3bf 8f5f 	dmb	sy
+  __ASM volatile ("cpsie i" : : : "memory");
    80ac2:	b662      	cpsie	i
+	
+	for(;;)
+	{
+		PopTask();
    80ac4:	2567      	movs	r5, #103	; 0x67
    80ac6:	4c05      	ldr	r4, [pc, #20]	; (80adc <main+0x4c>)
    80ac8:	4628      	mov	r0, r5
@@ -1773,12 +1812,6 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PRIMASK(void)
    80b6a:	4770      	bx	lr
   __ASM volatile ("cpsid i" : : : "memory");
    80b6c:	b672      	cpsid	i
-    This function ensures the apparent order of the explicit memory operations before
-    and after the instruction, without ensuring their completion.
- */
-__attribute__( ( always_inline ) ) __STATIC_INLINE void __DMB(void)
-{
-  __ASM volatile ("dmb");
    80b6e:	f3bf 8f5f 	dmb	sy
 			cpu_irq_disable();
    80b72:	2200      	movs	r2, #0

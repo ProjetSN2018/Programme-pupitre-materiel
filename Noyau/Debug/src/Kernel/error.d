@@ -139,7 +139,8 @@ src/Kernel/error.d src/Kernel/error.o: ../src/Kernel/error.c \
  ../src/ASF/sam/drivers/usart/usart.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/./Kernel/kernel.h \
  ../src/./Kernel/error.h ../src/./Kernel/taskman.h \
- ../src/./Kernel/shell.h ../src/./Kernel/shellcom.h
+ ../src/./Kernel/shell.h ../src/./Kernel/shellcom.h \
+ ../src/Kernel/../Headers/LCD.h
 
 ../src/Kernel/../Headers/appli.h:
 
@@ -436,3 +437,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/./Kernel/shell.h:
 
 ../src/./Kernel/shellcom.h:
+
+../src/Kernel/../Headers/LCD.h:

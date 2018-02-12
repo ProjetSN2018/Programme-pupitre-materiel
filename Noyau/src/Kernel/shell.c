@@ -61,10 +61,8 @@ enum{
 		Shellcom(SHELLCOM_NEW);
 		state = IDLE;
 		PushTask(Shell,_SHELL_HEARTBEAT,0,0);
+		PushTask(Appli,APPLI_NEW,0,800);
 		break;
-
-
-
 
 	////Private services implementation ///////////////////////////////
 	case _SHELL_KBHIT:

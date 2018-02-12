@@ -139,7 +139,7 @@ src/Kernel/shellcmd.d src/Kernel/shellcmd.o: ../src/Kernel/shellcmd.c \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/./Kernel/kernel.h \
  ../src/./Kernel/error.h ../src/./Kernel/taskman.h \
  ../src/./Kernel/shell.h ../src/./Kernel/shellcom.h \
- ../src/Kernel/shellcmd.h
+ ../src/./Headers/LCD.h ../src/Kernel/shellcmd.h
 
 ../src/./Headers/appli.h:
 
@@ -436,5 +436,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/./Kernel/shell.h:
 
 ../src/./Kernel/shellcom.h:
+
+../src/./Headers/LCD.h:
 
 ../src/Kernel/shellcmd.h:
