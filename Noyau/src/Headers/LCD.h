@@ -1,9 +1,9 @@
 /*
- * LCD.h
- *
- * Created: 12/02/2018 17:20:30
- *  Author: Mod_loc
- */ 
+* LCD.h
+*
+* Created: 12/02/2018 17:20:30
+*  Author: Mod_loc
+*/ 
 
 //LCD I/O MAPPING ////////////////////////////////////////////////
 #define LCD_DATA4			(PIO_PC25_IDX)
@@ -30,6 +30,10 @@
 #define LCD_RS_FLAGS		LCD_PIN_FLAGS
 //////////////////////////////////////////////////////////////////
 
- uint32_t Lcd(uint32_t sc, ...);
+uint32_t Lcd(uint32_t sc, ...);
  
- #define LCD_NEW		100
+#define LCD_NEW				100
+#define LCD_PUTSTRING		102
+
+
+#define LcdPutstr(str,line,row)		Lcd(LCD_PUTSTRING,(uint32_t)str,(uint32_t)line,(uint32_t)row)

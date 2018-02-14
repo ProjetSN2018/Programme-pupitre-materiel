@@ -49,6 +49,9 @@ int main (void)
 	Shell(SHELL_NEW);
 	Putstr("\r\n\n\tATMEL ATSAM3U STARTED\r\n\n");
 	
+	PushTask(Appli,APPLI_NEW,0,800);
+
+
 	//PushTask(Sablier, SABLIER_NEW, 0, 0);
 	//PushTask(Prompt, 0, 0, 800);
 	

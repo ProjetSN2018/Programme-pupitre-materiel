@@ -1,3 +1,5 @@
 http://www.newhavendisplay.com/specs/NHD-0216K1Z-FL-YBW.pdf
 
 https://www.arduino.cc/en/uploads/Main/arduino-Due-schematic.pdf
+
+http://www.displaytech-us.com/sites/default/files/driver-ic-data-sheet/Sitronix-ST7066U.pdf
