@@ -61,9 +61,13 @@ enum{
 		delay_ms(100);			// SEQUENCE DISPLAY HAVEN
 		_LcdPutData(0x20);		//pas la valeur 0x30 !!!!!
 		_LcdNybble();
+		_LcdPutData(0x20);
 		delay_ms(10);
+		_LcdPutData(0x20);
 		_LcdNybble();
+		_LcdPutData(0x20);
 		delay_ms(10);
+		_LcdPutData(0x20);
 		_LcdNybble();
 		delay_ms(10);
 		_LcdPutData(0x20);
@@ -176,4 +180,5 @@ enum{
 	default:
 		Error(ERR_LCD_SWITCH_BAD_SC, sc);
 	}
+	return 0;
  }

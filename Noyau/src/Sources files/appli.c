@@ -23,5 +23,6 @@
 	default:
 		Error(ERR_APPLI_SWITCH_BAD_SC, sc);
 	}
+	return 0;
  }
 
