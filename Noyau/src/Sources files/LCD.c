@@ -44,38 +44,41 @@ enum{
 		break;
 
 	case LCD_NEW:
+		Putstr("lcd new \r\n");
 		gpio_configure_pin(LCD_DATA4, LCD_PIN_FLAGS);
 		gpio_configure_pin(LCD_DATA5, LCD_PIN_FLAGS);
 		gpio_configure_pin(LCD_DATA6, LCD_PIN_FLAGS);
 		gpio_configure_pin(LCD_DATA7, LCD_PIN_FLAGS);
 		gpio_configure_pin(LCD_E,	  LCD_PIN_FLAGS);
 		gpio_configure_pin(LCD_RS,    LCD_PIN_FLAGS);
-
+		
 		gpio_set_pin_low(LCD_DATA4);
 		gpio_set_pin_low(LCD_DATA5);
 		gpio_set_pin_low(LCD_DATA6);
 		gpio_set_pin_low(LCD_DATA7);
-		gpio_set_pin_low(LCD_E);
-
 		gpio_set_pin_low(LCD_RS);
+		gpio_set_pin_low(LCD_E);
+		//_LcdNybble();
+		//_LcdNybble();
+		//delay_ms(100);
+		
 		delay_ms(100);			// SEQUENCE DISPLAY HAVEN
 		_LcdPutData(0x20);		//pas la valeur 0x30 !!!!!
 		_LcdNybble();
-		_LcdPutData(0x20);
 		delay_ms(10);
-		_LcdPutData(0x20);
 		_LcdNybble();
-		_LcdPutData(0x20);
 		delay_ms(10);
-		_LcdPutData(0x20);
 		_LcdNybble();
 		delay_ms(10);
 		_LcdPutData(0x20);
 		_LcdNybble();
-		_LcdCommand(0x28);
-		_LcdCommand(0x10);
-		_LcdCommand(0x0F);
-		_LcdCommand(0x06);
+		_LcdCommand(0x28);		 //Function Set
+		_LcdCommand(0x10);		 //Cursor or display shift
+		_LcdCommand(0x0E);		 //Display On/Off
+		_LcdCommand(0x06);		 //Entry Mode
+	//	_LcdCommand(0x01);		 //Clear Display
+
+
 
 
 		//////////// SEQUENCE DISPLAYTECH /////
@@ -115,11 +118,6 @@ enum{
 		//_LcdPutData(0x70);		//ENTRY MODE SET
 		//_LcdNybble();
 		//delay_ms(10);
-
-		//_LcdCommand(0x28);
-		//_LcdCommand(0x10);
-		//_LcdCommand(0x0F);
-		//_LcdCommand(0x06);
 
 		break;
 
