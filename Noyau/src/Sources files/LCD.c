@@ -11,6 +11,8 @@
 enum{
 	_LCD_PUT_DATA=1,
 	_LCD_NYBBLE,
+	_LCD_NOCHK,
+	_LCD_ONCE,
 	_LCD_CURSOR_HOME,
 	_LCD_COMMAND,
 	_LCD_WRITE_DATA
@@ -18,6 +20,8 @@ enum{
 
 #define _LcdPutData(data)		Lcd(_LCD_PUT_DATA,(uint32_t)data)
 #define _LcdNybble()			Lcd(_LCD_NYBBLE)
+#define _LcdNochk()				Lcd(_LCD_NOCHK)
+#define _LcdOnce()				Lcd(_LCD_ONCE)
 #define _LcdCursorHome()		Lcd(_LCD_CURSOR_HOME)		
 #define _LcdCommand(cmd)		Lcd(_LCD_COMMAND,(uint32_t)cmd)
 #define _LcdWriteData(data)		Lcd(_LCD_WRITE_DATA,(uint32_t)data)
@@ -57,6 +61,7 @@ enum{
 		gpio_set_pin_low(LCD_DATA6);
 		gpio_set_pin_low(LCD_DATA7);
 		gpio_set_pin_low(LCD_RS);
+<<<<<<< HEAD
 		gpio_set_pin_low(LCD_E);
 		//_LcdNybble();
 		//_LcdNybble();
@@ -79,50 +84,97 @@ enum{
 	//	_LcdCommand(0x01);		 //Clear Display
 
 
-
-
-		//////////// SEQUENCE DISPLAYTECH /////
-		//delay_ms(500);	
-		//_LcdPutData(0x30);
+=======
+		//delay_ms(100);			// SEQUENCE DISPLAY HAVEN
+		//_LcdPutData(0x20);		//pas la valeur 0x30 !!!!!
 		//_LcdNybble();
 		//delay_ms(10);
-//
+		//_LcdNybble();
+		//delay_ms(10);
+		//_LcdNybble();
+		//delay_ms(10);
 		//_LcdPutData(0x20);
 		//_LcdNybble();
-		//delay_ms(10);
-//
-		//_LcdPutData(0x80);		//NF
+		//_LcdCommand(0x28);
+		//_LcdCommand(0x10);
+		//_LcdCommand(0x0F);
+		//_LcdCommand(0x06);
+>>>>>>> master
+
+
+		////////////// SEQUENCE DISPLAYTECH /////
+		//delay_ms(40);	
+		//_LcdPutData(0x30);
+		//_LcdNybble();
+		//delay_ms(1);
+////
+		//_LcdPutData(0x20);
+		//_LcdNybble();
+		//delay_ms(1);
+////
+		//_LcdPutData(0x80);		//NF 0x80
+		//_LcdNybble();
+		//delay_ms(1);
+		//////
+		//_LcdPutData(0x80);
 		//_LcdNybble();
 		//delay_ms(10);
-//
+//////////////////////////
+		//_LcdPutData(0x20);		//NF 0x80
+		//_LcdNybble();
+		//delay_ms(10);
+/////////////////////////
 		//_LcdPutData(0x00);
 		//_LcdNybble();
-		//delay_ms(10);
-//
+		//delay_ms(1);
+////
 		//_LcdPutData(0xF0);		//DCB
 		//_LcdNybble();
-		//delay_ms(10);
-//
+		//delay_ms(1);
+////
 		//_LcdPutData(0x00);
 		//_LcdNybble();
-		//delay_ms(10);
-//
+		//delay_ms(1);
+////
 		//_LcdPutData(0x10);		//DISPLAY CLEAR
 		//_LcdNybble();
-		//delay_ms(10);
-//
+		//delay_ms(1);
+////
 		//_LcdPutData(0x00);
 		//_LcdNybble();
-		//delay_ms(10);
-//
+		//delay_ms(1);
+////
 		//_LcdPutData(0x70);		//ENTRY MODE SET
 		//_LcdNybble();
-		//delay_ms(10);
+		//delay_ms(1);
+//
+
+		delay_ms(40);				//SEQUENCE DISPLAYTECH bis
+		_LcdPutData(0x38);		
+		_LcdOnce();
+		delay_ms(1);
+
+		_LcdPutData(0x28);
+		_LcdNochk();
+		delay_ms(1);
+
+		_LcdPutData(0x28);
+		_LcdNochk();
+		delay_ms(1);
+
+		_LcdPutData(0x0F);
+		_LcdNybble();
+		delay_ms(1);
+
+		_LcdPutData(0x01);
+		_LcdNybble();
+		delay_ms(1);
+
+		_LcdPutData(0x06);
+		_LcdNybble();
+		delay_ms(1);
 
 		break;
-
-
-
 
 	//////// Private Services Implementation //////////////////////////////////////
 	case _LCD_PUT_DATA:
@@ -143,7 +195,38 @@ enum{
 		delay_ms(1);
 		gpio_set_pin_low(LCD_E);
 		break;
-
+	case _LCD_NOCHK:
+	
+	asm("PUSH\t A\n");
+	asm("ANL A,#F0H");
+	asm("CLR RS");
+	asm("CLR RW");
+	asm("SETB E");
+	asm("MOV P1,A");
+	asm("CLR E");
+	asm("POP A");
+	asm("SWAP A");
+	
+	
+		//uint32_t a;
+		//a = 0xF0;
+		//gpio_set_pin_low(LCD_RS);
+		//gpio_set_pin_high(LCD_E);
+		//_LcdPutData(a);
+		//gpio_set_pin_low(LCD_E);
+		//_LcdNybble();
+		//break;
+	//case _LCD_NOCHK:
+		////uint32_t a;
+		////a = 0xF0;
+		////gpio_set_pin_low(LCD_RS);
+		////gpio_set_pin_high(LCD_E);
+		////_LcdPutData(a);
+		////gpio_set_pin_low(LCD_E);
+		////_LcdPutData(0xFF);	
+		//asm("WRINS_CHK:");
+		//asm("CALL CHK_BUSY");
+		break;
 	case _LCD_COMMAND:
 #define cmd		((char)pa1)
 		gpio_set_pin_low(LCD_RS);	//RS=0 => COMMAND
