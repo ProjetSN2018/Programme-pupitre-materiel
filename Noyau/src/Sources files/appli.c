@@ -17,7 +17,13 @@
 		PushTask(Appli,APPLI_TEST,0,3000);
 		break;
 	case APPLI_TEST:
-		LcdPutstr("Hello World!",0,0);
+		LcdPutstr("Hello World 0",0,0);
+		LcdPutstr("Hello World 1",1,1);
+		LcdPutstr("Hello World 2",2,2);
+		LcdPutstr("Hello World 3",3,3);
+
+		//LcdPutstr("Hello World!	Case 1: When the number of display characters is less than 40  2 lines, the two lines are displayed from the head.",0,0);
+
 		Putstr("LCD Hello World!\r\n");
 		break;
 	default:
