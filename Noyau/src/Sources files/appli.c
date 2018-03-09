@@ -22,7 +22,6 @@
 		LcdPutstr("Hello World 2",2,2);
 		LcdPutstr("Hello World 3",3,3);
 
-		//LcdPutstr("Hello World!	Case 1: When the number of display characters is less than 40  2 lines, the two lines are displayed from the head.",0,0);
 
 		Putstr("LCD Hello World!\r\n");
 		break;

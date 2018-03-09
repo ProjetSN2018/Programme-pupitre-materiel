@@ -1607,7 +1607,7 @@ __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
    80a9a:	d006      	beq.n	80aaa <Appli+0x1a>
    80a9c:	2966      	cmp	r1, #102	; 0x66
    80a9e:	d01a      	beq.n	80ad6 <Appli+0x46>
-		//LcdPutstr("Hello World!	Case 1: When the number of display characters is less than 40  2 lines, the two lines are displayed from the head.",0,0);
+
 
 		Putstr("LCD Hello World!\r\n");
 		break;
