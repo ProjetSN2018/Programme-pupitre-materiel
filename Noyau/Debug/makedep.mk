@@ -4,6 +4,8 @@
 
 src\ASF\sam\drivers\tc\tc.c
 
+src\Sources files\menu.c
+
 src\ASF\sam\drivers\usart\usart.c
 
 src\Kernel\CRC16MODBUS.c
