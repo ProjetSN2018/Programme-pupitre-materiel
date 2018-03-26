@@ -48,11 +48,11 @@
 #define TC_CAPTURE_WAVEFORM_EXAMPLE_H_INCLUDED
 
 /**
- * \page asfdoc_sam_drivers_tc_example Timer Counter Capture Waveform Example
+ * \page asfdoc_sam_drivers_tc_example editTimer Counter Capture Waveform Example
  *
  * \section asfdoc_sam_drivers_tc_example_purpose Purpose
  *
- * This example indicates how to use the Timer Counter in capture mode and
+ * This example indicates how to use the editTimer Counter in capture mode and
  * waveform mode in order to measure the pulse frequency and count the total
  * pulse number of an external signal injected into the device's TIOA pin.
  *
@@ -63,7 +63,7 @@
  * the SAM4L Xplained Pro, and other evaluation kits. Refer to the list of
  * kits available for the actual device on http://www.atmel.com.
  *
- * It generates a waveform on the Timer Counter pin PIN_TC_WAVEFORM,
+ * It generates a waveform on the editTimer Counter pin PIN_TC_WAVEFORM,
  * and it captures a waveform from pin PIN_TC_CAPTURE. Refer to the
  * respective device evaluation kit's board file (conf_board.h) in order
  * to examine these #defines.
@@ -73,12 +73,12 @@
  *
  * \section asfdoc_sam_drivers_tc_example_description Description
  *
- * This example shows how to configure the Timer Counter in both waveform and
+ * This example shows how to configure the editTimer Counter in both waveform and
  * capture operating modes. In capture mode, a pulse signal (output from PIN_TC_WAVEFORM)
  * is connected to PIN_TC_CAPTURE, and Register A (RA) and Register B (RB) will be loaded
  * when their programmed event occurs.
  *
- * When the Timer Counter interrupt occurs, its interrupt handler reads the RA
+ * When the editTimer Counter interrupt occurs, its interrupt handler reads the RA
  * and RB register values (for computing pulse frequency) and also increases the total
  * pulse count number. The current pulse frequency and total pulse count number are
  * both output via the debug UART.
@@ -90,7 +90,7 @@
  * <li>Configure TC_CHANNEL_CAPTURE as a capture input
  * <li>Configure capture Register A (RA) to be loaded when a rising edge on TIOA occurs
  * <li>Configure capture Register B (RB) to be loaded when a falling edge on TIOA occurs
- * <li>Configure a Timer Counter interrupt and enable the RB load interrupt
+ * <li>Configure a editTimer Counter interrupt and enable the RB load interrupt
  * <li>Pressing 'c' in the terminal window, starts capture
  * <li>Pressing 's' in the terminal window, stops capture and dumps the information captured so far
  * </ul>
@@ -98,9 +98,9 @@
  *
  * \section asfdoc_sam_drivers_tc_example_files Main Files
  *
- * - tc.c: Timer Counter driver
- * - tc.h: Timer Counter driver header file
- * - tc_capture_waveform_example.c: Timer Counter example application
+ * - tc.c: editTimer Counter driver
+ * - tc.h: editTimer Counter driver header file
+ * - tc_capture_waveform_example.c: editTimer Counter example application
  *
  *
  * \section asfdoc_sam_drivers_tc_example_compilinfo Compilation Information

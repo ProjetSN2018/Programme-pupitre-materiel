@@ -6,18 +6,20 @@
  #define MENU_NEW				100
  #define MENU_SWITCH_BUTTON		101
  #define MENU_SELECT_BUTTON		102
- #define MENU_CLEAR_BUTTON		103
+ #define MENU_BACK_BUTTON		103
  #define MENU_SELECTED			104
  #define MENU_PROMPT			105
  #define MENU_LANGUAGE			106
  #define MENU_INIT				107
 
+ /////////Status/////////////////////////////
+ #define ST_MENU_IDLE		0x000001
+ #define ST_MENU_MENU		0x000002
 
  /////////PIN BUTTON/////////////////////////
  #define PIN_BUTTON_SWITCH		PIO_PA10
  #define PIN_BUTTON_SELECT		PIO_PA9
- #define PIN_BUTTON_CLEAR		PIO_PA8
-
+ #define PIN_BUTTON_BACK		PIO_PA8
 
  uint32_t Menu(uint32_t sc, ...);
 

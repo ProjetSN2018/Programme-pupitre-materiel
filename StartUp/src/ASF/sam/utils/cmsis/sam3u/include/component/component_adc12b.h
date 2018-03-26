@@ -91,9 +91,9 @@ typedef struct {
 #define ADC12B_MR_TRGSEL_Msk (0x7u << ADC12B_MR_TRGSEL_Pos) /**< \brief (ADC12B_MR) Trigger Selection */
 #define ADC12B_MR_TRGSEL(value) ((ADC12B_MR_TRGSEL_Msk & ((value) << ADC12B_MR_TRGSEL_Pos)))
 #define   ADC12B_MR_TRGSEL_ADC_TRIG0 (0x0u << 1) /**< \brief (ADC12B_MR) External trigger */
-#define   ADC12B_MR_TRGSEL_ADC_TRIG1 (0x1u << 1) /**< \brief (ADC12B_MR) TIO Output of the Timer Counter Channel 0 */
-#define   ADC12B_MR_TRGSEL_ADC_TRIG2 (0x2u << 1) /**< \brief (ADC12B_MR) TIO Output of the Timer Counter Channel 1 */
-#define   ADC12B_MR_TRGSEL_ADC_TRIG3 (0x3u << 1) /**< \brief (ADC12B_MR) TIO Output of the Timer Counter Channel 2 */
+#define   ADC12B_MR_TRGSEL_ADC_TRIG1 (0x1u << 1) /**< \brief (ADC12B_MR) TIO Output of the editTimer Counter Channel 0 */
+#define   ADC12B_MR_TRGSEL_ADC_TRIG2 (0x2u << 1) /**< \brief (ADC12B_MR) TIO Output of the editTimer Counter Channel 1 */
+#define   ADC12B_MR_TRGSEL_ADC_TRIG3 (0x3u << 1) /**< \brief (ADC12B_MR) TIO Output of the editTimer Counter Channel 2 */
 #define   ADC12B_MR_TRGSEL_ADC_TRIG4 (0x4u << 1) /**< \brief (ADC12B_MR) PWM Event Line 0 */
 #define   ADC12B_MR_TRGSEL_ADC_TRIG5 (0x5u << 1) /**< \brief (ADC12B_MR) PWM Event Line 1 */
 #define ADC12B_MR_LOWRES (0x1u << 4) /**< \brief (ADC12B_MR) Resolution */

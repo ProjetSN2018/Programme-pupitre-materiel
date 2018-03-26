@@ -46,9 +46,9 @@
 #define _SAM3U_RTT_COMPONENT_
 
 /* ============================================================================= */
-/**  SOFTWARE API DEFINITION FOR Real-time Timer */
+/**  SOFTWARE API DEFINITION FOR Real-time editTimer */
 /* ============================================================================= */
-/** \addtogroup SAM3U_RTT Real-time Timer */
+/** \addtogroup SAM3U_RTT Real-time editTimer */
 /*@{*/
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -62,11 +62,11 @@ typedef struct {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTT_MR : (RTT Offset: 0x00) Mode Register -------- */
 #define RTT_MR_RTPRES_Pos 0
-#define RTT_MR_RTPRES_Msk (0xffffu << RTT_MR_RTPRES_Pos) /**< \brief (RTT_MR) Real-time Timer Prescaler Value */
+#define RTT_MR_RTPRES_Msk (0xffffu << RTT_MR_RTPRES_Pos) /**< \brief (RTT_MR) Real-time editTimer Prescaler Value */
 #define RTT_MR_RTPRES(value) ((RTT_MR_RTPRES_Msk & ((value) << RTT_MR_RTPRES_Pos)))
 #define RTT_MR_ALMIEN (0x1u << 16) /**< \brief (RTT_MR) Alarm Interrupt Enable */
-#define RTT_MR_RTTINCIEN (0x1u << 17) /**< \brief (RTT_MR) Real-time Timer Increment Interrupt Enable */
-#define RTT_MR_RTTRST (0x1u << 18) /**< \brief (RTT_MR) Real-time Timer Restart */
+#define RTT_MR_RTTINCIEN (0x1u << 17) /**< \brief (RTT_MR) Real-time editTimer Increment Interrupt Enable */
+#define RTT_MR_RTTRST (0x1u << 18) /**< \brief (RTT_MR) Real-time editTimer Restart */
 /* -------- RTT_AR : (RTT Offset: 0x04) Alarm Register -------- */
 #define RTT_AR_ALMV_Pos 0
 #define RTT_AR_ALMV_Msk (0xffffffffu << RTT_AR_ALMV_Pos) /**< \brief (RTT_AR) Alarm Value */
@@ -76,7 +76,7 @@ typedef struct {
 #define RTT_VR_CRTV_Msk (0xffffffffu << RTT_VR_CRTV_Pos) /**< \brief (RTT_VR) Current Real-time Value */
 /* -------- RTT_SR : (RTT Offset: 0x0C) Status Register -------- */
 #define RTT_SR_ALMS (0x1u << 0) /**< \brief (RTT_SR) Real-time Alarm Status */
-#define RTT_SR_RTTINC (0x1u << 1) /**< \brief (RTT_SR) Real-time Timer Increment */
+#define RTT_SR_RTTINC (0x1u << 1) /**< \brief (RTT_SR) Real-time editTimer Increment */
 
 /*@}*/
 

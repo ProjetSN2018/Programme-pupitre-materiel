@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Watchdog Timer (WDT) driver for SAM.
+ * \brief Watchdog editTimer (WDT) driver for SAM.
  *
  * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
@@ -55,11 +55,11 @@ extern "C" {
 /// @endcond
 
 /**
- * \defgroup sam_drivers_wdt_group Watchdog Timer (WDT)
+ * \defgroup sam_drivers_wdt_group Watchdog editTimer (WDT)
  *
- * Driver for the WDT (Watchdog Timer). This driver provides access to the main
+ * Driver for the WDT (Watchdog editTimer). This driver provides access to the main
  * features of the WDT controller.
- * The Watchdog Timer can be used to prevent system lock-up if the software
+ * The Watchdog editTimer can be used to prevent system lock-up if the software
  * becomes trapped in a deadlock. It features a 12-bit down counter that allows
  * a watchdog period of up to 16 seconds (slow clock at 32.768 kHz). It can
  * generate a general reset or a processor reset only. In addition, it can be
@@ -73,7 +73,7 @@ extern "C" {
 #define WDT_MAX_VALUE     4095
 
 /**
- * \brief Get counter value or permitted range value of watchdog timer from the
+ * \brief Get counter value or permitted range value of watchdog editTimer from the
  * desired timeout period (in us).
  *
  * \note The value returned by this function can be used by wdt_init() if it is
@@ -100,12 +100,12 @@ uint32_t wdt_get_timeout_value(uint32_t ul_us, uint32_t ul_sclk)
 }
 
 /**
- * \brief Initialize watchdog timer with the given mode.
+ * \brief Initialize watchdog editTimer with the given mode.
  *
  * \param p_wdt Pointer to a WDT instance.
- * \param ul_mode Bitmask of watchdog timer mode.
+ * \param ul_mode Bitmask of watchdog editTimer mode.
  * \param us_counter The value loaded in the 12-bit Watchdog Counter.
- * \param us_delta The permitted range for reloading the Watchdog Timer.
+ * \param us_delta The permitted range for reloading the Watchdog editTimer.
  */
 void wdt_init(Wdt *p_wdt, uint32_t ul_mode, uint16_t us_counter,
 		uint16_t us_delta)
@@ -115,7 +115,7 @@ void wdt_init(Wdt *p_wdt, uint32_t ul_mode, uint16_t us_counter,
 }
 
 /**
- * \brief Disable the watchdog timer.
+ * \brief Disable the watchdog editTimer.
  */
 void wdt_disable(Wdt *p_wdt)
 {
@@ -124,7 +124,7 @@ void wdt_disable(Wdt *p_wdt)
 }
 
 /**
- * \brief Restart the watchdog timer.
+ * \brief Restart the watchdog editTimer.
  */
 void wdt_restart(Wdt *p_wdt)
 {
@@ -139,9 +139,9 @@ void wdt_restart(Wdt *p_wdt)
 }
 
 /**
- * \brief Check the watchdog timer status.
+ * \brief Check the watchdog editTimer status.
  *
- * \return Bitmask of watchdog timer status.
+ * \return Bitmask of watchdog editTimer status.
  */
 uint32_t wdt_get_status(Wdt *p_wdt)
 {
@@ -149,7 +149,7 @@ uint32_t wdt_get_status(Wdt *p_wdt)
 }
 
 /**
- * \brief Get the timeout period of the WatchDog Timer in microseconds.
+ * \brief Get the timeout period of the WatchDog editTimer in microseconds.
  *
  * \param p_wdt Pointer to a WDT instance.
  * \param ul_sclk The slow clock frequency (in Hz).

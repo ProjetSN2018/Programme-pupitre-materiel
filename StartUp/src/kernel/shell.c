@@ -464,7 +464,7 @@ uint32_t Shell(uint32_t sc, ...)
 						shell.state=EDITION;
 #undef k
 						break;
-                    case 0xCCBA:    //shiht+tabulate
+                    case 0xCCBA:    //shift+tabulate
                     case 0x6F0E:    //ctrl+left arrow
 						if((shell.nChar&&(shell.pEdit==shellEditBuf+shell.nChar)) ||
 						(((shell.pEdit-1)>=shellEditBuf)&&(_IsSeparator(*(shell.pEdit-1),separators))&&(!_IsSeparator(*shell.pEdit,separators))))
@@ -512,7 +512,7 @@ uint32_t Shell(uint32_t sc, ...)
 					break;
 
 				default:
-					Error(ERROR_SHELL_TIMER_ESC_BAD_SATE,shell.state);
+					Error(SHELL_ESC_TIMEOUT,shell.state); //ERROR_SHELL_TIMER_ESC_BAD_SATE
 				}
 			}
 		}
@@ -595,4 +595,13 @@ uint32_t Shell(uint32_t sc, ...)
 	return 0;
 }
 
+uint16_t getShellStatus()
+{
+	return shell.status;
+}
+
+void setShellStatus(uint16_t sstatus)
+{
+	shell.status = sstatus;
+}
 

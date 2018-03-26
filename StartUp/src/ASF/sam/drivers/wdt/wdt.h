@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Watchdog Timer (WDT) driver for SAM.
+ * \brief Watchdog editTimer (WDT) driver for SAM.
  *
  * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *

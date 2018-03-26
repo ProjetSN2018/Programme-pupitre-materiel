@@ -8,6 +8,9 @@
 
 uint32_t Shell(uint32_t sc, ...);
 
+uint16_t getShellStatus(void);
+void	 setShellStatus(uint16_t sstatus);
+
 #define SHELL_NEW			100
 
 

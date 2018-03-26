@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM Timer Counter (TC) driver.
+ * \brief SAM editTimer Counter (TC) driver.
  *
  * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
@@ -48,14 +48,14 @@
 #define TC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_tc_group SAM3/4S/4L/4E/4N/4CM/4C/G Timer Counter (TC) Driver
+ * \defgroup asfdoc_sam_drivers_tc_group SAM3/4S/4L/4E/4N/4CM/4C/G editTimer Counter (TC) Driver
  *
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
  * provides an interface for the configuration and management of the 
- * device's Timer Counter functionality.
+ * device's editTimer Counter functionality.
  *
- * The Timer Counter (TC) includes several identical 16-bit or 32-bit
- * Timer Counter channels. Each channel can be independently programmed
+ * The editTimer Counter (TC) includes several identical 16-bit or 32-bit
+ * editTimer Counter channels. Each channel can be independently programmed
  * to perform a wide range of functions that includes frequency
  * measurement, event counting, interval measurement, pulse generation,
  * delay timing, and pulse width modulation.
@@ -85,7 +85,7 @@
  *
  *
  * \section asfdoc_sam_drivers_tc_module_overview Module Overview
- * The Timer Counter (TC) includes several identical 16-bit or 32-bit Timer
+ * The editTimer Counter (TC) includes several identical 16-bit or 32-bit editTimer
  * Counter channels. The number of TC channels is device specific, refer
  * to the device-specific datasheet for more information.
  *
@@ -98,9 +98,9 @@
  * Each channel drives an internal interrupt signal which can be programmed to
  * generate processor interrupts.
  *
- * The Timer Counter (TC) embeds a quadrature decoder logic connected in front of
- * the timers. When enabled, the quadrature decoder performs the input line
- * filtering, decoding of quadrature signals and connects to the timers/counters
+ * The editTimer Counter (TC) embeds a quadrature decoder logic connected in front of
+ * the editTimers. When enabled, the quadrature decoder performs the input line
+ * filtering, decoding of quadrature signals and connects to the editTimers/counters
  * in order to read the position and speed of the motor.
  *
  *
@@ -202,7 +202,7 @@ uint32_t tc_get_version(Tc *p_tc);
 /** @} */
 
 /**
- * \page asfdoc_sam_drivers_tc_extra Extra Information for Timer Counter Driver
+ * \page asfdoc_sam_drivers_tc_extra Extra Information for editTimer Counter Driver
  *
  * \section asfdoc_sam_drivers_tc_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
@@ -251,7 +251,7 @@ uint32_t tc_get_version(Tc *p_tc);
  * </tr>
  *  <tr>
  *      <td>TIOB</td>
- *      <td>Timer Input Output B</td>
+ *      <td>editTimer Input Output B</td>
  * </tr>
  * </table>
  *
@@ -285,7 +285,7 @@ uint32_t tc_get_version(Tc *p_tc);
  */
  
 /**
- * \page asfdoc_sam_drivers_tc_exqsg Examples for Timer Counter
+ * \page asfdoc_sam_drivers_tc_exqsg Examples for editTimer Counter
  *
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_tc_group. QSGs are simple examples with
@@ -410,7 +410,7 @@ uint32_t tc_get_version(Tc *p_tc);
  * \snippet conf_board.h tc_define_ch1
  *
  * Add these macros and function to your main application C-file:
- * \code #define TC_WAVEFORM_TIMER_SELECTION TC_CMR_TCCLKS_TIMER_CLOCK4 \endcode
+ * \code #define TC_WAVEFORM_editTimer_SELECTION TC_CMR_TCCLKS_editTimer_CLOCK4 \endcode
  * \code #define TC_WAVEFORM_DIVISOR     128 \endcode
  * \code #define TC_WAVEFORM_FREQUENCY   178 \endcode
  * \code #define TC_WAVEFORM_DUTY_CYCLE  30 \endcode
@@ -424,7 +424,7 @@ uint32_t tc_get_version(Tc *p_tc);
  *
  *	// Init TC to waveform mode.
  *	tc_init(TC, TC_CHANNEL_WAVEFORM,
- *			TC_WAVEFORM_TIMER_SELECTION // Waveform Clock Selection
+ *			TC_WAVEFORM_editTimer_SELECTION // Waveform Clock Selection
  *			| TC_CMR_WAVE       // Waveform mode is enabled
  *			| TC_CMR_ACPA_SET   // RA Compare Effect: set
  *			| TC_CMR_ACPC_CLEAR // RC Compare Effect: clear
@@ -449,7 +449,7 @@ uint32_t tc_get_version(Tc *p_tc);
  * \snippet tc_capture_waveform_example.c tc_waveform_gpio
  * -# Initialize the waveform channel to the following:
  *   - Output frequency of 178Hz, with a duty-cycle of 30%
- *   - Use TC_CMR_TCCLKS_TIMER_CLOCK4, with a divisor of 128
+ *   - Use TC_CMR_TCCLKS_editTimer_CLOCK4, with a divisor of 128
  * \snippet tc_capture_waveform_example.c tc_waveform_init_call
  */
 #endif /* TC_H_INCLUDED */

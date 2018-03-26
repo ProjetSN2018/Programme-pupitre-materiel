@@ -88,9 +88,9 @@ enum status_code {
 	ERR_BAD_ADDRESS         =  -9, //!< Bad address
 	ERR_BUSY                =  -10, //!< Resource is busy
 	ERR_BAD_FORMAT          =  -11, //!< Data format not recognized
-	ERR_NO_TIMER            =  -12, //!< No timer available
-	ERR_TIMER_ALREADY_RUNNING   =  -13, //!< Timer already running
-	ERR_TIMER_NOT_RUNNING   =  -14, //!< Timer not running
+	ERR_NO_editTimer            =  -12, //!< No editTimer available
+	ERR_editTimer_ALREADY_RUNNING   =  -13, //!< editTimer already running
+	ERR_editTimer_NOT_RUNNING   =  -14, //!< editTimer not running
 	ERR_ABORTED             =  -15, //!< Operation aborted by user
 	/**
 	 * \brief Operation in progress

@@ -92,8 +92,8 @@ typedef enum IRQn
   SUPC_IRQn            =  0, /**<  0 SAM3U4E Supply Controller (SUPC) */
   RSTC_IRQn            =  1, /**<  1 SAM3U4E Reset Controller (RSTC) */
   RTC_IRQn             =  2, /**<  2 SAM3U4E Real Time Clock (RTC) */
-  RTT_IRQn             =  3, /**<  3 SAM3U4E Real Time Timer (RTT) */
-  WDT_IRQn             =  4, /**<  4 SAM3U4E Watchdog Timer (WDT) */
+  RTT_IRQn             =  3, /**<  3 SAM3U4E Real Time editTimer (RTT) */
+  WDT_IRQn             =  4, /**<  4 SAM3U4E Watchdog editTimer (WDT) */
   PMC_IRQn             =  5, /**<  5 SAM3U4E Power Management Controller (PMC) */
   EFC0_IRQn            =  6, /**<  6 SAM3U4E Enhanced Embedded Flash Controller 0 (EFC0) */
   EFC1_IRQn            =  7, /**<  7 SAM3U4E Enhanced Embedded Flash Controller 1 (EFC1) */
@@ -111,9 +111,9 @@ typedef enum IRQn
   TWI1_IRQn            = 19, /**< 19 SAM3U4E Two-Wire Interface 1 (TWI1) */
   SPI_IRQn             = 20, /**< 20 SAM3U4E Serial Peripheral Interface (SPI) */
   SSC_IRQn             = 21, /**< 21 SAM3U4E Synchronous Serial Controller (SSC) */
-  TC0_IRQn             = 22, /**< 22 SAM3U4E Timer Counter 0 (TC0) */
-  TC1_IRQn             = 23, /**< 23 SAM3U4E Timer Counter 1 (TC1) */
-  TC2_IRQn             = 24, /**< 24 SAM3U4E Timer Counter 2 (TC2) */
+  TC0_IRQn             = 22, /**< 22 SAM3U4E editTimer Counter 0 (TC0) */
+  TC1_IRQn             = 23, /**< 23 SAM3U4E editTimer Counter 1 (TC1) */
+  TC2_IRQn             = 24, /**< 24 SAM3U4E editTimer Counter 2 (TC2) */
   PWM_IRQn             = 25, /**< 25 SAM3U4E Pulse Width Modulation Controller (PWM) */
   ADC12B_IRQn          = 26, /**< 26 SAM3U4E 12-bit ADC Controller (ADC12B) */
   ADC_IRQn             = 27, /**< 27 SAM3U4E 10-bit ADC Controller (ADC) */
@@ -147,8 +147,8 @@ typedef struct _DeviceVectors
   void* pfnSUPC_Handler;   /*  0 Supply Controller */
   void* pfnRSTC_Handler;   /*  1 Reset Controller */
   void* pfnRTC_Handler;    /*  2 Real Time Clock */
-  void* pfnRTT_Handler;    /*  3 Real Time Timer */
-  void* pfnWDT_Handler;    /*  4 Watchdog Timer */
+  void* pfnRTT_Handler;    /*  3 Real Time editTimer */
+  void* pfnWDT_Handler;    /*  4 Watchdog editTimer */
   void* pfnPMC_Handler;    /*  5 Power Management Controller */
   void* pfnEFC0_Handler;   /*  6 Enhanced Embedded Flash Controller 0 */
   void* pfnEFC1_Handler;   /*  7 Enhanced Embedded Flash Controller 1 */
@@ -166,9 +166,9 @@ typedef struct _DeviceVectors
   void* pfnTWI1_Handler;   /* 19 Two-Wire Interface 1 */
   void* pfnSPI_Handler;    /* 20 Serial Peripheral Interface */
   void* pfnSSC_Handler;    /* 21 Synchronous Serial Controller */
-  void* pfnTC0_Handler;    /* 22 Timer Counter 0 */
-  void* pfnTC1_Handler;    /* 23 Timer Counter 1 */
-  void* pfnTC2_Handler;    /* 24 Timer Counter 2 */
+  void* pfnTC0_Handler;    /* 22 editTimer Counter 0 */
+  void* pfnTC1_Handler;    /* 23 editTimer Counter 1 */
+  void* pfnTC2_Handler;    /* 24 editTimer Counter 2 */
   void* pfnPWM_Handler;    /* 25 Pulse Width Modulation Controller */
   void* pfnADC12B_Handler; /* 26 12-bit ADC Controller */
   void* pfnADC_Handler;    /* 27 10-bit ADC Controller */
@@ -321,8 +321,8 @@ void WDT_Handler        ( void );
 #define ID_SUPC   ( 0) /**< \brief Supply Controller (SUPC) */
 #define ID_RSTC   ( 1) /**< \brief Reset Controller (RSTC) */
 #define ID_RTC    ( 2) /**< \brief Real Time Clock (RTC) */
-#define ID_RTT    ( 3) /**< \brief Real Time Timer (RTT) */
-#define ID_WDT    ( 4) /**< \brief Watchdog Timer (WDT) */
+#define ID_RTT    ( 3) /**< \brief Real Time editTimer (RTT) */
+#define ID_WDT    ( 4) /**< \brief Watchdog editTimer (WDT) */
 #define ID_PMC    ( 5) /**< \brief Power Management Controller (PMC) */
 #define ID_EFC0   ( 6) /**< \brief Enhanced Embedded Flash Controller 0 (EFC0) */
 #define ID_EFC1   ( 7) /**< \brief Enhanced Embedded Flash Controller 1 (EFC1) */
@@ -340,9 +340,9 @@ void WDT_Handler        ( void );
 #define ID_TWI1   (19) /**< \brief Two-Wire Interface 1 (TWI1) */
 #define ID_SPI    (20) /**< \brief Serial Peripheral Interface (SPI) */
 #define ID_SSC    (21) /**< \brief Synchronous Serial Controller (SSC) */
-#define ID_TC0    (22) /**< \brief Timer Counter 0 (TC0) */
-#define ID_TC1    (23) /**< \brief Timer Counter 1 (TC1) */
-#define ID_TC2    (24) /**< \brief Timer Counter 2 (TC2) */
+#define ID_TC0    (22) /**< \brief editTimer Counter 0 (TC0) */
+#define ID_TC1    (23) /**< \brief editTimer Counter 1 (TC1) */
+#define ID_TC2    (24) /**< \brief editTimer Counter 2 (TC2) */
 #define ID_PWM    (25) /**< \brief Pulse Width Modulation Controller (PWM) */
 #define ID_ADC12B (26) /**< \brief 12-bit ADC Controller (ADC12B) */
 #define ID_ADC    (27) /**< \brief 10-bit ADC Controller (ADC) */

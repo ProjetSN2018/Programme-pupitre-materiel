@@ -23,7 +23,7 @@ struct{
 	t_task* pPop;
 }taskman;
 
-///////// TIMER TICK INITIALIZER //////////////////////////////////////////
+///////// editTimer TICK INITIALIZER //////////////////////////////////////////
 static void TCWaveformInitialize(void);
 
 //Use TC Peripheral 0 ///////////////////////////////////////////////
@@ -36,7 +36,7 @@ static void TCWaveformInitialize(void);
 #define PIN_TC_WAVEFORM					(PIO_PA1_IDX)
 #define PIN_TC_WAVEFORM_MUX				(IOPORT_MODE_MUX_A)
 
-#define TC_WAVEFORM_TIMER_SELECTION		TC_CMR_TCCLKS_TIMER_CLOCK4
+#define TC_WAVEFORM_editTimer_SELECTION		TC_CMR_TCCLKS_editTimer_CLOCK4
 #define TC_WAVEFORM_DIVISOR				128
 #define TC_WAVEFORM_FREQUENCY			1000
 #define TC_WAVEFORM_DUTY_CYCLE			30
@@ -59,7 +59,7 @@ uint32_t Taskman(uint32_t sc, ...)
 		{
 			dTasks[k].delay=0;
 		}
-		//// TIMER TICK CONFIGURATION //////////////////////////////////////////////
+		//// editTimer TICK CONFIGURATION //////////////////////////////////////////////
 		ioport_set_pin_mode(PIN_TC_WAVEFORM, PIN_TC_WAVEFORM_MUX);
 		ioport_disable_pin(PIN_TC_WAVEFORM);
 
@@ -159,20 +159,20 @@ uint32_t Taskman(uint32_t sc, ...)
 }
 
 
-/////////////////////////////////////////// TIMER TICK ISR HANDLER ////////////////////////////////////////////////////
+/////////////////////////////////////////// editTimer TICK ISR HANDLER ////////////////////////////////////////////////////
 enum{
-	_SHELL_TIMER = 3
+	_SHELL_editTimer = 3
 };
 
 void TC0_Handler(void)
 {
 	tc_get_status(TC, TC_CHANNEL_WAVEFORM);
 	Taskman(_TASKMAN_DELAYED_TASK_PROC);
-	Shell(_SHELL_TIMER);
+	Shell(_SHELL_editTimer);
 }
 
 
-/////////////////////////////////////////// TIMER TICK INITIALIZER ////////////////////////////////////////////////////
+/////////////////////////////////////////// editTimer TICK INITIALIZER ////////////////////////////////////////////////////
 static void TCWaveformInitialize(void)
 {
 	uint32_t ra, rc;
@@ -184,7 +184,7 @@ static void TCWaveformInitialize(void)
 	tc_init(
 	TC,
 	TC_CHANNEL_WAVEFORM,
-	TC_WAVEFORM_TIMER_SELECTION	|	//Waveform Clock Selection
+	TC_WAVEFORM_editTimer_SELECTION	|	//Waveform Clock Selection
 	TC_CMR_WAVE |					//Waveform mode is enabled
 	TC_CMR_ACPA_SET |				//RA Compare Effect: set
 	TC_CMR_ACPC_CLEAR |				//RC Compare Effect: clear

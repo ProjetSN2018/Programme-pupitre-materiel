@@ -46,9 +46,9 @@
 #define _SAM3U_WDT_COMPONENT_
 
 /* ============================================================================= */
-/**  SOFTWARE API DEFINITION FOR Watchdog Timer */
+/**  SOFTWARE API DEFINITION FOR Watchdog editTimer */
 /* ============================================================================= */
-/** \addtogroup SAM3U_WDT Watchdog Timer */
+/** \addtogroup SAM3U_WDT Watchdog editTimer */
 /*@{*/
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

@@ -600,12 +600,12 @@ typedef struct
 
 
 /** \ingroup  CMSIS_core_register
-    \defgroup CMSIS_SysTick     System Tick Timer (SysTick)
-    \brief      Type definitions for the System Timer Registers.
+    \defgroup CMSIS_SysTick     System Tick editTimer (SysTick)
+    \brief      Type definitions for the System editTimer Registers.
   @{
  */
 
-/** \brief  Structure type to access the System Timer (SysTick).
+/** \brief  Structure type to access the System editTimer (SysTick).
  */
 typedef struct
 {
@@ -1536,7 +1536,7 @@ __STATIC_INLINE void NVIC_SystemReset(void)
 
 /** \brief  System Tick Configuration
 
-    The function initializes the System Timer and its interrupt, and starts the System Tick Timer.
+    The function initializes the System editTimer and its interrupt, and starts the System Tick editTimer.
     Counter is in free running mode to generate periodic interrupts.
 
     \param [in]  ticks  Number of ticks between two interrupts.
@@ -1558,7 +1558,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
   SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
                    SysTick_CTRL_TICKINT_Msk   |
-                   SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick Timer */
+                   SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick editTimer */
   return (0);                                                  /* Function successful */
 }
 

@@ -11,8 +11,8 @@
 
 /// SHELL PARAMETERS /////////////////////////////////////////////////////////////////////////
 #define UART_BAUDRATE						115200ul
-#define SHELL_ESC_TIMEOUT					20
-#define SHELL_EDIT_TIMEOUT					0
+#define SHELL_ESC_TIMEOUT					5000u
+#define SHELL_EDIT_TIMEOUT					100u
 
 #define SHELL_TXBUF_LEN						512
 #define SHELL_EDITBUF_LEN					256
@@ -65,11 +65,7 @@ typedef uint32_t(*t_pFunc)(uint32_t,...);
 #include "menu.h"
 #include "sas.h"
 
-
-
 #define KernelNew()				{ Taskman(TASKMAN_NEW); Shell(SHELL_NEW); }
 #define KernelRun()				{ for(;;) Taskman(TASKMAN_POP); }
 
 #define PushTask(func,sc,pa,delay)		Taskman(TASKMAN_PUSH,(uint32_t)func,(uint32_t)sc,(uint32_t)pa,(uint32_t)delay)
-
-	

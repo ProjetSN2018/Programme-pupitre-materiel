@@ -92,7 +92,7 @@
  * The Reset Controller contains an NRST Manager and a Reset State Manager. It runs at
  * Slow Clock (SCLK) and generates the following:
  *
- * - Processor and Watchdog Timer reset
+ * - Processor and Watchdog editTimer reset
  * - Embedded peripheral reset
  * - Co-processor and Co-processor peripheral reset (SAM4C devices only)
  * - External device reset (via the NRST pin)
@@ -104,7 +104,7 @@
  *
  * \subsection asfdoc_sam_drivers_rstc_module_overview_nrst_manager NRST Manager
  * To control an external device reset the NRST Manager shapes the NRST assertion period
- * using a programmable timer. While asserted, after power-up, NRST is an output and
+ * using a programmable editTimer. While asserted, after power-up, NRST is an output and
  * driven low. When the programmable time period has elapsed the pin behaves as an input
  * and all the system is held in reset if NRST is tied to GND by an external signal.
  *
@@ -145,7 +145,7 @@
  *
  * \subsubsection asfdoc_sam_drivers_rstc_module_overview_reset_state_software Software Reset
  * The Reset Controller allows software to assert the the following reset signals:
- * - Reset the processor and the Watchdog Timer
+ * - Reset the processor and the Watchdog editTimer
  * - Reset all the embedded peripherals
  * - Reset the Co-processor (SAM4C devices only)
  * - Reset all the embedded peripherals associated with the Co-processor (SAM4C devices only)
@@ -171,7 +171,7 @@
  *
  * Particular cases are listed below:
  * - When in User Reset:
- *  - A watchdog event is impossible because the Watchdog Timer is being reset
+ *  - A watchdog event is impossible because the Watchdog editTimer is being reset
  *  - A Software Reset is impossible because the processor reset is being activated
  * - When in Software Reset:
  *  - A watchdog event has priority over the current state
@@ -396,7 +396,7 @@ static inline void rstc_assert_reset_of_coprocessor(
  *
  * \subsection asfdoc_sam_drivers_rstc_quick_start_prereq Prerequisites
  * - \ref sysclk_group "System Clock Management"
- * - \ref asfdoc_sam_drivers_wdt_group "Watchdog Timer"
+ * - \ref asfdoc_sam_drivers_wdt_group "Watchdog editTimer"
  *
  * \section asfdoc_sam_drivers_rstc_quick_start_setup Setup Steps
  * \subsection asfdoc_sam_drivers_rstc_quick_start_setup_code Example Code

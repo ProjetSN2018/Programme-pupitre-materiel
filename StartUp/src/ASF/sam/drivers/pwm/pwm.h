@@ -134,15 +134,15 @@ typedef enum {
 	PWM_FAULT_MAINOSC = (1 << 1),
 	PWM_FAULT_ADC = (1 << 2),
 	PWM_FAULT_ACC = (1 << 3),
-	PWM_FAULT_TIMER_0 = (1 << 4),
-	PWM_FAULT_TIMER_1 = (1 << 5),
+	PWM_FAULT_editTimer_0 = (1 << 4),
+	PWM_FAULT_editTimer_1 = (1 << 5),
 #elif (SAM3XA)
 	PWM_FAULT_PWMFI0 = (1 << 0),
 	PWM_FAULT_PWMFI1 = (1 << 1),
 	PWM_FAULT_PWMFI2 = (1 << 2),
 	PWM_FAULT_MAINOSC = (1 << 3),
 	PWM_FAULT_ADC = (1 << 4),
-	PWM_FAULT_TIMER_0 = (1 << 5),
+	PWM_FAULT_editTimer_0 = (1 << 5),
 #endif
 } pwm_fault_id_t;
 

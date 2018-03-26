@@ -12,10 +12,9 @@ uint32_t Sas(uint32_t sc, ...)
 	{
 	case SAS_FERMER_SAS:
 		gpio_toggle_pin(POWER_LED);
-		sprintf(buf, "Fermeture SAS");
-		LcdPutstr("                   ", 3, 0);
+		sprintf(buf, "Fermeture sas");
 		Putstr(buf);
-		LcdPutstr(buf, 3, LcdFindHalf(strlen(buf)));
+		LcdPutstr(buf, 3, LcdFindCenter(strlen(buf)));
 		break;
 	case SAS_FERMER_PORTE1:
 		sprintf(buf, "Fermeture Porte 1");

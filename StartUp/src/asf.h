@@ -102,13 +102,13 @@
 // From module: System Clock Control - SAM3U implementation
 #include <sysclk.h>
 
-// From module: TC - Timer Counter
+// From module: TC - editTimer Counter
 #include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>
 
-// From module: WDT - Watchdog Timer
+// From module: WDT - Watchdog editTimer
 #include <wdt.h>
 
 // From module: pio_handler support enabled

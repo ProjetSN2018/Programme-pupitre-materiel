@@ -88,8 +88,8 @@ IntFunc exception_table[] = {
 	SUPC_Handler,      /* 0  Supply Controller */
 	RSTC_Handler,      /* 1  Reset Controller */
 	RTC_Handler,       /* 2  Real Time Clock */
-	RTT_Handler,       /* 3  Real Time Timer */
-	WDT_Handler,       /* 4  Watchdog Timer */
+	RTT_Handler,       /* 3  Real Time editTimer */
+	WDT_Handler,       /* 4  Watchdog editTimer */
 	PMC_Handler,       /* 5  PMC */
 	EFC0_Handler,      /* 6  EEFC 0 */
 	EFC1_Handler,      /* 7  EEFC 1 */
@@ -115,9 +115,9 @@ IntFunc exception_table[] = {
 	TWI1_Handler,      /* 19 TWI 1 */
 	SPI_Handler,       /* 20 SPI */
 	SSC_Handler,       /* 21 SSC */
-	TC0_Handler,       /* 22 Timer Counter 0 */
-	TC1_Handler,       /* 23 Timer Counter 1 */
-	TC2_Handler,       /* 24 Timer Counter 2 */
+	TC0_Handler,       /* 22 editTimer Counter 0 */
+	TC1_Handler,       /* 23 editTimer Counter 1 */
+	TC2_Handler,       /* 24 editTimer Counter 2 */
 	PWM_Handler,       /* 25 PWM */
 	ADC12B_Handler,    /* 26 ADC12B controller */
 	ADC_Handler,       /* 27 ADC controller */

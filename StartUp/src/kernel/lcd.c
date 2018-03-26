@@ -68,6 +68,7 @@ enum{
 #define _LcdWriteByte(inst)			Lcd(_LCD_WRITE_BYTE,(uint32_t)inst)
 #define _LcdWriteInst(inst)			Lcd(_LCD_WRITE_INST,(uint32_t)inst)
 #define _LcdWriteData(data)			Lcd(_LCD_WRITE_DATA,(uint32_t)data)
+#define _LcdFindCenter(len)			Lcd(_LCD_FIND_CENTER,(uint32_t)len)
 #define _LcdEstrobe()				Lcd(_LCD_E_STROBE)
 #define _LcdEup()					Lcd(_LCD_E_UP)
 #define _LcdEdown()					Lcd(_LCD_E_DOWN)
@@ -75,7 +76,6 @@ enum{
 #define _LcdIsBusy()				Lcd(_LCD_IS_BUSY)
 #define _LcdSetDataLineOut()		Lcd(_LCD_SET_DATA_LINE_OUT)
 #define _LcdSetDataLineIn()			Lcd(_LCD_SET_DATA_LINE_IN)
-
 
 const char line2addr[]={ 0x00, 0x40, 0x14, 0x54 };
 char buf[16];
@@ -86,9 +86,10 @@ struct {
 
 #define ST_LCD_ON		0x0000001
 
-
 uint32_t Lcd(uint32_t sc, ...)
 {
+	float col;
+
 	switch(sc)
 	{
 	case LCD_NEW:
@@ -156,11 +157,19 @@ uint32_t Lcd(uint32_t sc, ...)
 #define _str		pa1
 #define _line		pa2
 #define _col		pa3
+		//On efface la ligne
+		_LcdSetCursor(_line,0);
+		for(int i=0;i<20;i++)
+		{
+			_LcdWriteData(' ');
+		}
+		//On écrit
 		_LcdSetCursor(_line,_col);
 		while(*(char*)_str)
 		{
 			_LcdWriteData(*(char*)_str++);
 		}
+		//
 #undef _str
 #undef _line
 #undef _col
@@ -221,6 +230,17 @@ uint32_t Lcd(uint32_t sc, ...)
 		_LcdWriteByte(_data<<4);
 #endif
 #undef _data
+		break;
+
+	case LCD_FIND_CENTER:
+
+#define _len (unsigned)pa1
+
+			col = 20 - _len;
+			col = col/2;
+			return col;
+
+#undef _len
 		break;
 
 	case _LCD_E_STROBE:
@@ -307,12 +327,4 @@ uint32_t Lcd(uint32_t sc, ...)
 		Error(ERROR_LCD_SWITCH_BAD_SC,sc);
 	}
 	return 0;
-}
-
-uint8_t LcdFindHalf(uint32_t len)
-{
-	float col;
-	col = 20 - len;
-	col = col/2;
-	return col;
 }

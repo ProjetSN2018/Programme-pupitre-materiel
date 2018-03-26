@@ -24,4 +24,4 @@ void Error(uint32_t er, ...);
 #define ERROR_SHELLCOM_UART_INIT_FAILED				24
 #define ERROR_SHELL_COM_UART_TX_FAILED				25
 
-#define ERROR_SHELL_TIMER_ESC_BAD_SATE				31
+#define ERROR_SHELL_editTimer_ESC_BAD_SATE				31

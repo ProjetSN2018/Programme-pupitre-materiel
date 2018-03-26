@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM Timer Counter (TC) driver.
+ * \brief SAM editTimer Counter (TC) driver.
  *
  * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
@@ -60,7 +60,7 @@ extern "C" {
 #endif
 
 /**
- * \brief Configure TC for timer, waveform generation, or capture.
+ * \brief Configure TC for editTimer, waveform generation, or capture.
  *
  * \param[in,out] p_tc   Module hardware register base address pointer
  * \param[in] ul_channel Channel to configure
@@ -467,7 +467,7 @@ uint32_t tc_get_status(
 	return tc_channel->TC_SR;
 }
 
-/* TC divisor used to find the lowest acceptable timer frequency */
+/* TC divisor used to find the lowest acceptable editTimer frequency */
 #define TC_DIV_FACTOR 65536
 
 #if (!SAM4L) && !defined(__DOXYGEN__)
@@ -479,12 +479,12 @@ uint32_t tc_get_status(
 /**
  * \brief Find the best MCK divisor.
  *
- * Finds the best MCK divisor given the timer frequency and MCK. The result
+ * Finds the best MCK divisor given the editTimer frequency and MCK. The result
  * is guaranteed to satisfy the following equation:
  * \code (MCK / (DIV * 65536)) <= freq <= (MCK / DIV) \endcode
  * With DIV being the lowest possible value, to maximize timing adjust resolution.
  *
- * \param[in] ul_freq     Desired timer frequency
+ * \param[in] ul_freq     Desired editTimer frequency
  * \param[in] ul_mck      Master clock frequency
  * \param[out] p_uldiv    Divisor value
  * \param[out] p_ultcclks TCCLKS field value for divisor
@@ -540,17 +540,17 @@ uint32_t tc_find_mck_divisor(
 /**
  * \brief Find the best PBA/MCK divisor.
  *
- * <b>For SAM4L devices:</b> Finds the best PBA divisor given the timer
+ * <b>For SAM4L devices:</b> Finds the best PBA divisor given the editTimer
  * frequency and PBA clock. The result is guaranteed to satisfy the following equation:
  * \code  (ul_pbaclk / (2* DIV * 65536)) <= freq <= (ul_pbaclk / (2* DIV)) \endcode
  * with DIV being the lowest possible value, to maximize timing adjust resolution.
  *
- * <b>For non SAM4L devices:</b> Finds the best MCK divisor given the timer frequency
+ * <b>For non SAM4L devices:</b> Finds the best MCK divisor given the editTimer frequency
  * and MCK. The result is guaranteed to satisfy the following equation:
  * \code (MCK / (DIV * 65536)) <= freq <= (MCK / DIV) \endcode
  * with DIV being the lowest possible value, to maximize timing adjust resolution.
  *
- * \param[in] ul_freq     Desired timer frequency
+ * \param[in] ul_freq     Desired editTimer frequency
  * \param[in] ul_mck      PBA clock frequency
  * \param[out] p_uldiv    Divisor value
  * \param[out] p_ultcclks TCCLKS field value for divisor

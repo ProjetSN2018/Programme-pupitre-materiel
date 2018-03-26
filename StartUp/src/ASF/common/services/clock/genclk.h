@@ -103,7 +103,7 @@
  * Generic clocks are configurable clocks which run outside the system
  * clock domain. They are often connected to peripherals which have an
  * asynchronous component running independently of the bus clock, e.g.
- * USB controllers, low-power timers and RTCs, etc.
+ * USB controllers, low-power editTimers and RTCs, etc.
  *
  * Note that not all platforms have support for generic clocks; on such
  * platforms, this API will not be available.
