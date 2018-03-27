@@ -13,6 +13,7 @@ const t_command_entry commands[]={
 	{0x624F, (t_pCmdFunc)start		},	//command start
 	{0xAE76, (t_pCmdFunc)stop		},	//command stop
 
+
 	////////////////// LIST TERMINATOR ////////////////////////////////
 	{0x0000, NULL           } //Don't remove!
 };

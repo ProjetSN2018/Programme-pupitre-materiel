@@ -127,9 +127,9 @@ src/kernel/taskman.d src/kernel/taskman.o: ../src/kernel/taskman.c \
  ../src/ASF/sam/utils/cmsis/sam3u/source/templates/exceptions.h \
  ../src/ASF/sam/drivers/tc/tc.h ../src/ASF/sam/drivers/uart/uart.h \
  ../src/ASF/sam/drivers/wdt/wdt.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/kernel/error.h \
- ../src/kernel/taskman.h ../src/kernel/kRtc.h ../src/kernel/lcd.h \
- ../src/kernel/shellcom.h ../src/kernel/shellcmd.h \
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/kernel/..\timerCallMap.h \
+ ../src/kernel/error.h ../src/kernel/taskman.h ../src/kernel/kRtc.h \
+ ../src/kernel/lcd.h ../src/kernel/shellcom.h ../src/kernel/shellcmd.h \
  ../src/kernel/commandStub.h ../src/kernel/shell.h ../src/menu.h \
  ../src/sas.h
 
@@ -406,6 +406,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/sam/drivers/wdt/wdt.h:
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
+
+../src/kernel/..\timerCallMap.h:
 
 ../src/kernel/error.h:
 

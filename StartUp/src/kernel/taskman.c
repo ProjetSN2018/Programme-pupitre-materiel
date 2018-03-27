@@ -159,16 +159,19 @@ uint32_t Taskman(uint32_t sc, ...)
 }
 
 
-/////////////////////////////////////////// editTimer TICK ISR HANDLER ////////////////////////////////////////////////////
-enum{
-	_SHELL_editTimer = 3
-};
-
-void TC0_Handler(void)
+void TC0_Handler(void) //Each ms we come here....
 {
+	uint8_t	k=0;
 	tc_get_status(TC, TC_CHANNEL_WAVEFORM);
 	Taskman(_TASKMAN_DELAYED_TASK_PROC);
-	Shell(_SHELL_editTimer);
+	
+	Shell(__TIMER_CALL_SERVICE);
+
+	while(timerCallMap[k])
+	{
+		timerCallMap[k](__TIMER_CALL_SERVICE);
+		k++;
+	}
 }
 
 

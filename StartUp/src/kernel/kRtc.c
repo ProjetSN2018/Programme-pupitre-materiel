@@ -269,9 +269,6 @@ void RTC_Handler(void)
 	PushTask(Shell,_SHELL_PROMPT,0,0);
 }
 
-
-
-
 //void RTCStart(void)
 //{
     //rtc.hours = 23;

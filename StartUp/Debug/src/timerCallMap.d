@@ -1,6 +1,6 @@
-src/kernel/kRtc.d src/kernel/kRtc.o: ../src/kernel/kRtc.c \
- ../src/kernel/kernel.h ../src/asf.h \
- ../src/ASF/sam/drivers/chipid/chipid.h ../src/ASF/sam/utils/compiler.h \
+src/timerCallMap.d src/timerCallMap.o: ../src/timerCallMap.c \
+ ../src/appli.h ../src/asf.h ../src/ASF/sam/drivers/chipid/chipid.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -127,13 +127,14 @@ src/kernel/kRtc.d src/kernel/kRtc.o: ../src/kernel/kRtc.c \
  ../src/ASF/sam/utils/cmsis/sam3u/source/templates/exceptions.h \
  ../src/ASF/sam/drivers/tc/tc.h ../src/ASF/sam/drivers/uart/uart.h \
  ../src/ASF/sam/drivers/wdt/wdt.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/kernel/..\timerCallMap.h \
- ../src/kernel/error.h ../src/kernel/taskman.h ../src/kernel/kRtc.h \
- ../src/kernel/lcd.h ../src/kernel/shellcom.h ../src/kernel/shellcmd.h \
- ../src/kernel/commandStub.h ../src/kernel/shell.h ../src/menu.h \
- ../src/sas.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/.\kernel\kernel.h \
+ ../src/.\kernel\..\timerCallMap.h ../src/.\kernel\error.h \
+ ../src/.\kernel\taskman.h ../src/.\kernel\kRtc.h ../src/.\kernel\lcd.h \
+ ../src/.\kernel\shellcom.h ../src/.\kernel\shellcmd.h \
+ ../src/.\kernel\commandStub.h ../src/.\kernel\shell.h ../src/menu.h \
+ ../src/sas.h ../src/timerCallMap.h
 
-../src/kernel/kernel.h:
+../src/appli.h:
 
 ../src/asf.h:
 
@@ -407,24 +408,28 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/kernel/..\timerCallMap.h:
+../src/.\kernel\kernel.h:
 
-../src/kernel/error.h:
+../src/.\kernel\..\timerCallMap.h:
 
-../src/kernel/taskman.h:
+../src/.\kernel\error.h:
 
-../src/kernel/kRtc.h:
+../src/.\kernel\taskman.h:
 
-../src/kernel/lcd.h:
+../src/.\kernel\kRtc.h:
 
-../src/kernel/shellcom.h:
+../src/.\kernel\lcd.h:
 
-../src/kernel/shellcmd.h:
+../src/.\kernel\shellcom.h:
 
-../src/kernel/commandStub.h:
+../src/.\kernel\shellcmd.h:
 
-../src/kernel/shell.h:
+../src/.\kernel\commandStub.h:
+
+../src/.\kernel\shell.h:
 
 ../src/menu.h:
 
 ../src/sas.h:
+
+../src/timerCallMap.h:

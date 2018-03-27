@@ -11,6 +11,7 @@
  #define MENU_PROMPT			105
  #define MENU_LANGUAGE			106
  #define MENU_INIT				107
+ #define MENU_RETURN_HOME		108
 
  /////////Status/////////////////////////////
  #define ST_MENU_IDLE		0x000001

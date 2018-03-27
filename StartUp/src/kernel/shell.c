@@ -12,9 +12,9 @@
 
 ///////// PRIVATE SERVICES CODES //////////////////////////////////////////
 enum{
-	_SHELL_HEART_BEAT = 1,
+	_SHELL_TIMER = __TIMER_CALL_SERVICE,
 	_SHELL_KBHIT = 2,
-	_SHELL_TIMER = 3,
+	_SHELL_HEART_BEAT = 3,
 	_SHELL_PROMPT = 4,
 	_SHELL_PUT_ASCII_TO_HEX,
 	_SHELL_CHECK_SEPARATORS,
@@ -135,6 +135,7 @@ uint32_t Shell(uint32_t sc, ...)
 #undef _date
 #undef _day			
 		}
+			
 		break;
 
 	case _SHELL_KBHIT:
@@ -145,7 +146,7 @@ uint32_t Shell(uint32_t sc, ...)
 			switch(_kbhitchar)
 			{
 			case '\e':	//escape
-				shell.escapeTimer=SHELL_ESC_TIMEOUT;
+				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
 				shell.pEscbuf=shellEscapeBuf;
 				*shell.pEscbuf++='\e';
 				shell.nEscChar=1;
@@ -173,7 +174,7 @@ uint32_t Shell(uint32_t sc, ...)
 				shell.state=ESCAPE_SEQ;
 				//no break here to continue with ESCAPE_SEQ case !
 		case ESCAPE_SEQ:
-				shell.escapeTimer=SHELL_ESC_TIMEOUT;
+				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
 				*shell.pEscbuf++=_kbhitchar;
 				shell.nEscChar++;
 				shell.crc=CRC16MODBUS(_kbhitchar,shell.crc);
@@ -183,7 +184,7 @@ uint32_t Shell(uint32_t sc, ...)
 			switch(_kbhitchar)
 			{
 			case '\e':	//escape
-				shell.escapeTimer=SHELL_ESC_TIMEOUT;
+				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
 				shell.editTimer=0;
 				shell.pEscbuf=shellEscapeBuf;
 				*shell.pEscbuf++='\e';
@@ -327,7 +328,7 @@ uint32_t Shell(uint32_t sc, ...)
 			shell.state=ED_ESCAPE_SEQ;
 			//no break here to continue with ED_ESCAPE_SEQ case !
 		case ED_ESCAPE_SEQ:
-			shell.escapeTimer=SHELL_ESC_TIMEOUT;
+			shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
 			*shell.pEscbuf++=_kbhitchar;
 			shell.nEscChar++;
 			shell.crc=CRC16MODBUS(_kbhitchar,shell.crc);
@@ -367,7 +368,7 @@ uint32_t Shell(uint32_t sc, ...)
 							EnterEditMode();
 							shell.editTimer=SHELL_EDIT_TIMEOUT;
 							shell.pEdit=shellEditBuf+shell.nChar;
-							Putstr("\r\n");
+							Putstr("\r\n>");
 							Putstrlen(shellEditBuf,shell.nChar);
 							shell.state=EDITION;
 						}
@@ -512,7 +513,7 @@ uint32_t Shell(uint32_t sc, ...)
 					break;
 
 				default:
-					Error(SHELL_ESC_TIMEOUT,shell.state); //ERROR_SHELL_TIMER_ESC_BAD_SATE
+					Error(SHELL_ESCAPE_TIMEOUT,shell.state); //ERROR_SHELL_TIMER_ESC_BAD_SATE
 				}
 			}
 		}
@@ -521,9 +522,12 @@ uint32_t Shell(uint32_t sc, ...)
         {
 	        if(--shell.editTimer==0)
 	        {
+			 shell.editTimer = shell.escapeTimer = 0;
+			 Putstr("\r\n\n");
+			 shell.state = IDLE;
+			 ExitEditMode();
 	        }
         }
-
 		break;
 
 	case _SHELL_PUT_ASCII_TO_HEX:

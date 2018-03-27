@@ -10,6 +10,8 @@ src\menu.c
 
 src\sas.c
 
+src\timerCallMap.c
+
 src\ASF\sam\drivers\pio\pio_handler.c
 
 src\ASF\common\services\delay\sam\cycle_counter.c

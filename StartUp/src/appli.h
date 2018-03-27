@@ -8,7 +8,9 @@
 
 #include <asf.h>
 #include ".\kernel\kernel.h"
+#include "timerCallMap.h"
 
+#define BUTTON_NO_ACTIVITY_TIMEOUT		5000
 
 #define BLUETOOTH_PWR					(PIO_PB21_IDX)
 #define BLUETOOTH_FLAGS					(PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT)
@@ -48,9 +50,6 @@
 #define CMD_RELAIS_2_FLAGS				(PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
 #define CMD_RELAIS_2_ACTIVE_LEVEL		1
 #define CMD_RELAIS_2_NAME				"CMD RELAIS 2"
-
-
-
 
 #define PENE_OUVERT						(PIO_PA14_IDX)
 #define PENE_OUVERT_FLAGS				(PIO_TYPE_PIO_INPUT | PIO_PULLUP)
@@ -104,8 +103,9 @@
 
 uint32_t Appli(uint32_t sc, ...);
 
-#define APPLI_NEW					100
+#define APPLI_NEW						100
+#define APPLI_SET_BUTTON_TIMEOUT		102
 
-
+#define SetButtonTimeout()				Appli(APPLI_SET_BUTTON_TIMEOUT)
 
 

@@ -24,7 +24,7 @@
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
     <OverrideVtorValue>exception_table</OverrideVtorValue>
-    <BootSegment>1</BootSegment>
+    <BootSegment>2</BootSegment>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
@@ -213,7 +213,7 @@
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <JtagDbgClock>7500000</JtagDbgClock>
+          <JtagDbgClock>0</JtagDbgClock>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
           <JtagInChain>false</JtagInChain>
           <JtagDevicesBefore>0</JtagDevicesBefore>
@@ -231,9 +231,8 @@
       <ToolNumber>J41800079464</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
-    <avrtoolinterface>
-    </avrtoolinterface>
-    <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterfaceclock>0</avrtoolinterfaceclock>
     <ResetRule>0</ResetRule>
     <EraseKey />
   </PropertyGroup>
@@ -565,6 +564,9 @@
     <Compile Include="src\ASF\sam\drivers\chipid\chipid.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\timerCallMap.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\menu.c">
       <SubType>compile</SubType>
     </Compile>
@@ -575,6 +577,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\sas.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\timerCallMap.c">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\chipid\chipid.h">

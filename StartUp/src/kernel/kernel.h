@@ -11,8 +11,8 @@
 
 /// SHELL PARAMETERS /////////////////////////////////////////////////////////////////////////
 #define UART_BAUDRATE						115200ul
-#define SHELL_ESC_TIMEOUT					5000u
-#define SHELL_EDIT_TIMEOUT					100u
+#define SHELL_ESCAPE_TIMEOUT				100u
+#define SHELL_EDIT_TIMEOUT					0u
 
 #define SHELL_TXBUF_LEN						512
 #define SHELL_EDITBUF_LEN					256
@@ -54,6 +54,8 @@
 typedef void(*t_pTaskFunc)(uint32_t,...);
 typedef uint32_t(*t_pFunc)(uint32_t,...);
 
+
+#include "..\timerCallMap.h"
 #include "error.h"
 #include "taskman.h"
 #include "kRtc.h"

@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "./kernel/kernel.h"
+#include "appli.h"
 
 
 ///////////////////////////////ON CREE LE MENU!!!//////////////////////////////////////////
@@ -113,6 +113,7 @@ uint32_t Menu(uint32_t sc, ...)
 			
 			break;
 		case MENU_PROMPT:
+			SetButtonTimeout();
 			Putstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel);
 			LcdPutstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel,2,LcdFindCenter(strlen(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel)));
 			setShellStatus(ST_MENU_MENU);
@@ -120,6 +121,13 @@ uint32_t Menu(uint32_t sc, ...)
 		case MENU_INIT:
 		
 			break;
+
+
+		case MENU_RETURN_HOME:
+			LcdPutstr("CPU.ACX  ATSAM3U4C",2,1);
+			LcdPutstr("www.a-2-s.net",3,4);
+			break;
+
 		default:
 			Error(ERROR_MENU_SWITCH_BAD_SC, sc);
 	}
@@ -130,21 +138,21 @@ void ButtonSwitch_ISR_Handler()
 {
 	PushTask(Menu, MENU_SWITCH_BUTTON,0,0);
 
-	if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
+	//if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
 }
 
 void ButtonSelect_ISR_Handler()
 {
 	PushTask(Menu, MENU_SELECT_BUTTON,0,0);
 
-	if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
+	//if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
 }
 
 void ButtonBack_ISR_Handler()
 {
 	PushTask(Menu, MENU_BACK_BUTTON,0,0);
 
-	if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
+	//if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
 }
 
  uint32_t _menuOptionSasFunc(uint32_t sc, ...)
