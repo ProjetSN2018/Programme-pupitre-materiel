@@ -28,8 +28,6 @@ uint32_t Appli(uint32_t sc, ...)
 	case APPLI_NEW:
 		appli.status = appli.timer = 0;
 
-
-
 		gpio_configure_pin(CMD_MOSFET,			CMD_MOSFET_FLAGS);
 		gpio_configure_pin(CMD_MOT_SERRURE,		CMD_MOT_SERRURE_FLAGS);
 		gpio_configure_pin(CMD_RELAIS,			CMD_RELAIS_FLAGS);

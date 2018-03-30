@@ -23,6 +23,3 @@
  #define PIN_BUTTON_BACK		PIO_PA8
 
  uint32_t Menu(uint32_t sc, ...);
-
- #define NB_MENU		3
- #define NB_SUB_MENU	3

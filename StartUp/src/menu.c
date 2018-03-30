@@ -13,39 +13,48 @@
  }t_menu;
 
  extern const t_menu _mainMenu[];
- extern const t_menu _porteMenu[];
+ extern const t_menu _modesMenu[];
 
- uint32_t _menuOptionSasFunc(uint32_t sc, ...);
- uint32_t _menuPorteFermer1(uint32_t sc, ...);
- uint32_t _menuPorteFermer2(uint32_t sc, ...);
+ uint32_t _menuActualMode(uint32_t sc, ...);
+ uint32_t _menuDoorNumber(uint32_t sc, ...);
+ uint32_t _menuPairing(uint32_t sc, ...);
 
-  uint32_t _menuEtatPorte1(uint32_t sc, ...);
-  uint32_t _menuEtatPorte2(uint32_t sc, ...);
-  uint32_t _menuEtatPortes(uint32_t sc, ...);
+//const t_menu _pairingMenu[] = {
+	//{"Etat porte 1",	_modesMenu,			NULL,				_ },
+	////Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	////////////////////////////////////////////////////////////////////////////////////
+	//{ NULL, NULL, NULL	}
+//};
 
-const t_menu _etatMenu[] = {
-	{"Etat porte 1",	_porteMenu, NULL, _menuEtatPorte1 },
-	{"Etat porte 2",	_porteMenu, NULL, _menuEtatPorte2 },
-	{"Etat portes",		_porteMenu, NULL, _menuEtatPortes },
-	///////////////////////////////////////////////////////////
+const t_menu _doorNumberMenu[] = {
+	{"1 porte",			_mainMenu,			NULL,				NULL},
+	{"2 portes",		_mainMenu,			NULL,				NULL},
+	{"3 portes ou plus",_mainMenu,			NULL,				NULL},
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}
 };
 
-const t_menu _porteMenu[] = {
-	{"Fermer porte 1",	_mainMenu,	NULL,		_menuPorteFermer1 },
-	{"Fermer porte 2",	_mainMenu,	NULL,		_menuPorteFermer2 },
-	{"Etat portes",		_mainMenu,	_etatMenu,  NULL },
-	//////////////////////////////////////////////////////
+const t_menu _technicianMenu[] = {
+	{"Nombre de porte :",_modesMenu,		NULL,				_menuDoorNumber },
+	{"Appairage :",		_modesMenu,			NULL,				_menuPairing },
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}
 };
 
-const t_menu _mainMenu[]={
-	{"Option sas",		NULL,	NULL,		_menuOptionSasFunc },
-	{"Option portes",	NULL,	_porteMenu,	NULL },
-	{"Option fenetre",	NULL,	_porteMenu,	NULL },
-	{"Option trappe",	NULL,	_porteMenu,	NULL },
+const t_menu _modesMenu[] = {
+	{"Mode actuel :",	_mainMenu,			NULL,				_menuActualMode },
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
+	{ NULL, NULL, NULL	}
+};
 
-	//////////////////////////////////////////////////////
+const t_menu _mainMenu[] = {
+	{"Mode technicien",	NULL,				_doorNumberMenu,	NULL },
+	{"Mode normal",		NULL,				_modesMenu,			NULL },
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}
 };
 
@@ -154,92 +163,50 @@ void ButtonBack_ISR_Handler()
 
 	//if(getShellStatus() == ST_MENU_IDLE) setShellStatus(ST_MENU_MENU);
 }
+////////////////////////////////////////////////////////////////////////////////////////////////
+///////		FONCTIONS DU MENU	////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
- uint32_t _menuOptionSasFunc(uint32_t sc, ...)
- {
-	switch(sc)
-	{
-	default:
-		Putstr("_menuOptionSasFunc: BAD SC");
-		LcdPutstr("Fermeture sas",
-					3,
-					LcdFindCenter(strlen("Fermeture sas"))
-					);
-		break;
-	}
-	return 0;
- }
-
-uint32_t _menuPorteFermer1(uint32_t sc, ...)
+uint32_t _menuActualMode(uint32_t sc, ...)
 {
 	switch(sc)
 	{
 		default:
-		Putstr("_menuPorteFermer1: BAD SC");
-		LcdPutstr("Fermeture porte 1",
+		Putstr("_menuActualMode: BAD SC");
+		LcdPutstr("MODE PLACEHOLDER",
 					3,
-					LcdFindCenter(strlen("Fermeture porte 1"))
+					LcdFindCenter(strlen("MODE PLACEHOLDER"))
 					);
 		break;
 	}
 	return 0;
 }
 
-uint32_t _menuPorteFermer2(uint32_t sc, ...)
+uint32_t _menuDoorNumber(uint32_t sc, ...)
 {
 	switch(sc)
 	{
 		default:
-		Putstr("_menuPorteFermer2: BAD SC");
-		LcdPutstr("Fermeture porte 2",
-					3,
-					LcdFindCenter(strlen("Fermeture porte 2"))
-					);
+		Putstr("_menuDoorNumber: BAD SC");
+		LcdPutstr("DOOR NUMBER PLACEHOLDER",
+		3,
+		LcdFindCenter(strlen("DOOR NUMBER PLACEHOLDER"))
+		);
 		break;
 	}
 	return 0;
 }
 
-uint32_t _menuEtatPorte1(uint32_t sc, ...)
+uint32_t _menuPairing(uint32_t sc, ...);
 {
 	switch(sc)
 	{
 		default:
-		Putstr("_menuOptionSasFunc: BAD SC");
-		LcdPutstr("Etat porte 1",
-					3,
-					LcdFindCenter(strlen("Etat porte 1"))
-					);
-		break;
-	}
-	return 0;
-}
-
-uint32_t _menuEtatPorte2(uint32_t sc, ...)
-{
-	switch(sc)
-	{
-		default:
-		Putstr("_menuOptionSasFunc: BAD SC");
-		LcdPutstr("Etat porte 2",
-					3,
-					LcdFindCenter(strlen("Etat porte 2"))
-					);
-		break;
-	}
-	return 0;
-}
-
-uint32_t _menuEtatPortes(uint32_t sc, ...)
-{
-	switch(sc)
-	{
-		default:
-		Putstr("_menuOptionSasFunc: BAD SC");
-		LcdPutstr("Etat portes",
-					3,
-					LcdFindCenter(strlen("Etat portes"))
-					);
+		Putstr("_menuPairing: BAD SC");
+		LcdPutstr("PAIRING PLACEHOLDER",
+		3,
+		LcdFindCenter(strlen("PAIRING PLACEHOLDER"))
+		);
 		break;
 	}
 	return 0;

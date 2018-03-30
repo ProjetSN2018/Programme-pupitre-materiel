@@ -6,6 +6,10 @@
 #include "./kernel/kernel.h"
 #include <string.h>
 
+struct {
+	uint32_t mode;
+}sas;
+
 uint32_t Sas(uint32_t sc, ...)
 {
 	switch(sc)
