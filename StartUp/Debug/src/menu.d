@@ -16,8 +16,9 @@ src/menu.d src/menu.o: ../src/menu.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_locale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
- ../src/appli.h ../src/asf.h ../src/ASF/sam/drivers/chipid/chipid.h \
- ../src/ASF/sam/utils/compiler.h ../src/ASF/common/utils/parts.h \
+ ../src/appli.h ../src/module.h ../src/asf.h \
+ ../src/ASF/sam/drivers/chipid/chipid.h ../src/ASF/sam/utils/compiler.h \
+ ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
  ../src/ASF/sam/utils/preprocessor/tpaste.h \
  ../src/ASF/sam/utils/preprocessor/stringz.h \
@@ -119,6 +120,32 @@ src/menu.d src/menu.o: ../src/menu.c \
  ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/sam3u/pll.h \
  ../src/ASF/common/services/delay/sam/cycle_counter.h \
+ ../src/ASF/common/services/freertos/sam/freertos_peripheral_control.h \
+ ../src/ASF/sam/drivers/pdc/pdc.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h \
+ ../src/config/FreeRTOSConfig.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/semphr.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h \
+ ../src/ASF/common/services/freertos/sam/freertos_peripheral_control_private.h \
+ ../src/ASF/common/services/freertos/sam/freertos_uart_serial.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h \
+ ../src/ASF/common/services/freertos/sam/freertos_peripheral_control.h \
+ ../src/ASF/sam/drivers/uart/uart.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/StackMacros.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/croutine.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/timers.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h \
  ../src/ASF/common/services/gpio/gpio.h \
  ../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h \
  ../src/ASF/sam/drivers/pio/pio.h \
@@ -127,14 +154,19 @@ src/menu.d src/menu.o: ../src/menu.c \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
  ../src/ASF/sam/drivers/rstc/rstc.h ../src/ASF/sam/drivers/rtc/rtc.h \
  ../src/ASF/sam/utils/cmsis/sam3u/source/templates/exceptions.h \
- ../src/ASF/sam/drivers/tc/tc.h ../src/ASF/sam/drivers/uart/uart.h \
+ ../src/ASF/sam/drivers/tc/tc.h \
+ ../src/ASF/common/services/serial/serial.h \
+ ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
+ ../src/ASF/sam/drivers/usart/usart.h ../src/config/conf_uart_serial.h \
  ../src/ASF/sam/drivers/wdt/wdt.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/.\kernel\kernel.h \
- ../src/.\kernel\..\timerCallMap.h ../src/.\kernel\error.h \
+ ../src/.\kernel\../module.h ../src/.\kernel\..\timerCallMap.h \
+ ../src/.\kernel\error.h ../src/.\kernel\stack.h \
  ../src/.\kernel\taskman.h ../src/.\kernel\kRtc.h ../src/.\kernel\lcd.h \
  ../src/.\kernel\shellcom.h ../src/.\kernel\shellcmd.h \
- ../src/.\kernel\commandStub.h ../src/.\kernel\shell.h ../src/menu.h \
- ../src/sas.h ../src/timerCallMap.h
+ ../src/.\kernel\commandStub.h ../src/.\kernel\shell.h \
+ ../src/.\kernel\comRS485.h ../src/.\kernel\modbus.h ../src/menu.h \
+ ../src/sas.h ../src/timerCallMap.h ../src/menu.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
 
@@ -171,6 +203,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h:
 
 ../src/appli.h:
+
+../src/module.h:
 
 ../src/asf.h:
 
@@ -388,6 +422,58 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/common/services/delay/sam/cycle_counter.h:
 
+../src/ASF/common/services/freertos/sam/freertos_peripheral_control.h:
+
+../src/ASF/sam/drivers/pdc/pdc.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h:
+
+../src/config/FreeRTOSConfig.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/semphr.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h:
+
+../src/ASF/common/services/freertos/sam/freertos_peripheral_control_private.h:
+
+../src/ASF/common/services/freertos/sam/freertos_uart_serial.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h:
+
+../src/ASF/common/services/freertos/sam/freertos_peripheral_control.h:
+
+../src/ASF/sam/drivers/uart/uart.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/StackMacros.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/croutine.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/timers.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h:
+
 ../src/ASF/common/services/gpio/gpio.h:
 
 ../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h:
@@ -410,7 +496,13 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/sam/drivers/tc/tc.h:
 
-../src/ASF/sam/drivers/uart/uart.h:
+../src/ASF/common/services/serial/serial.h:
+
+../src/ASF/common/services/serial/sam_uart/uart_serial.h:
+
+../src/ASF/sam/drivers/usart/usart.h:
+
+../src/config/conf_uart_serial.h:
 
 ../src/ASF/sam/drivers/wdt/wdt.h:
 
@@ -418,9 +510,13 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/.\kernel\kernel.h:
 
+../src/.\kernel\../module.h:
+
 ../src/.\kernel\..\timerCallMap.h:
 
 ../src/.\kernel\error.h:
+
+../src/.\kernel\stack.h:
 
 ../src/.\kernel\taskman.h:
 
@@ -436,8 +532,14 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/.\kernel\shell.h:
 
+../src/.\kernel\comRS485.h:
+
+../src/.\kernel\modbus.h:
+
 ../src/menu.h:
 
 ../src/sas.h:
 
 ../src/timerCallMap.h:
+
+../src/menu.h:

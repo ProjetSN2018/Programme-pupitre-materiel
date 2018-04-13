@@ -22,8 +22,6 @@
 //#define USART_SERIAL_RXD_IDX			PIN_USART0_RXD_IDX
 //#define USART_SERIAL_RXD_FLAGS			PIN_USART0_RXD_FLAGS
 
-
-
 enum{
 	PAR_EVEN = 0,
 	PAR_ODD,
@@ -54,8 +52,7 @@ const sam_uart_opt_t uart_opt={
 #define UART_RX_PIN					(PIO_PA11_IDX)
 #define UART_RX_PIN_FLAGS			(PIO_TYPE_PIO_PERIPH_A | PIO_PULLUP)
 
-
-
+extern const char hexDigits[];
 char shellcomTxBuf[SHELLCOM_TXBUF_LEN];
 
 struct{
@@ -63,10 +60,8 @@ struct{
 	char	*pTxRead;
 }shellcom;
 
-
 uint32_t Shellcom(uint32_t sc, ...)
 {
-
 	switch(sc)
 	{
 	case SHELLCOM_NEW:
@@ -123,11 +118,27 @@ uint32_t Shellcom(uint32_t sc, ...)
 #undef _nChar
 		//no break;
 
+	case SHELLCOM_PUTHEXACODE:
+#define _pStr	pa1
+#define _strLen	pa2
+#define _nChar	sc
+		_nChar=0;
+		while(_strLen)
+		{
+			Putch(hexDigits[(*(char*)_pStr)>>4]);
+			Putch(hexDigits[(*(char*)_pStr)&0x0F]);
+			Putch(' ');
+			 _pStr++; _strLen--; _nChar++;
+		}
+		return _nChar;
+#undef _pStr
+#undef _strLen
+#undef _nChar
+		//no break;
 	/////// INVALID SC CODE TRAP ERROR /////////////////////////////////////////////////////////////////
 	default:
 		Error(ERROR_SHELLCOM_SWITCH_BAD_SC, (uint32_t)sc);
 	}
-
 	return 0;
 }
 
@@ -158,5 +169,3 @@ void UART_Handler()
 		PushTask(Shell,_SHELL_KBHIT,UART->UART_RHR,0);
 	}
 }
-
-

@@ -6,7 +6,6 @@
  */ 
 
  #define SAS_FERMER_SAS			10
- #define SAS_FERMER_PORTE1		21
- #define SAS_FERMER_PORTE2		22
+ #define SAS_FERMER_PORTE		21
 
  uint32_t Sas(uint32_t sc, ...);

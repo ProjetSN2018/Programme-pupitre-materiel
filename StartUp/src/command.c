@@ -34,7 +34,6 @@ void set(uint32_t sc, void*pParam)
 #define TEST_NEW		100
 #define TEST_RUN		102
 
-
 void Test(uint32_t sc, uint32_t phase);
 
 enum{
@@ -52,11 +51,11 @@ void Test(uint32_t sc, uint32_t phase)
 	case TEST_NEW:
 		Putstr("\r\nTest started...\r\n");
 		phase<<=8;
-		phase&=0xFF00;
+		phase&=0xFFFF00;
 		phase|=PH_CMD_MOSFET;
 		//no break;
 	case TEST_RUN:
-		sprintf(buf,"\r\nPH:%d--%d\r\n",*((char*)&phase+1),*((char*)&phase+0));
+		sprintf(buf,"\r\nPH:%d--%d\r\n",*((uint16_t*)((uint8_t*)&phase+1)),*((char*)&phase));
 		Putstr(buf);
 
 		Putstr(PENE_OUVERT_NAME);			Putstr("\t: ");		gpio_pin_is_low(PENE_OUVERT)?Putstr("ON"):Putstr("OFF");		Putstr("\r\n");
@@ -98,9 +97,9 @@ void Test(uint32_t sc, uint32_t phase)
 			gpio_set_pin_low(CMD_RELAIS_1);
 			gpio_set_pin_low(CMD_RELAIS_2);
 
-			if(*((char*)&phase+1))
+			if(*((uint16_t*)((uint8_t*)&phase+1)))
 			{
-				if(--(*((char*)&phase+1)))
+				if(--(*((uint16_t*)((uint8_t*)&phase+1))))
 				{
 					PushTask(Test,TEST_NEW,phase>>8,0);
 				}
@@ -115,8 +114,6 @@ void Test(uint32_t sc, uint32_t phase)
 	PushTask(Test,TEST_RUN,++phase,1000);
 }
 
-
-
 void start(uint32_t sc, void*pParam)
 {
 	char *pToken;
@@ -128,8 +125,6 @@ void start(uint32_t sc, void*pParam)
 		case 0xC698:	//lcd
 			Lcd(LCD_DEL);
 			Lcd(LCD_NEW);
-			LcdPutstr("CPU.ACX  ATSAM3U4C",2,1);
-			LcdPutstr("www.a-2-s.net",3,4);
 			break;
 		case 0x0634:	//backlight
 			LcdBacklight(true);
@@ -258,4 +253,94 @@ void stop(uint32_t sc, void*pParam)
 		mstrtokRestore();
 		break;
 	}
+}
+
+uint32_t registerValue[4];
+
+///SAM3U RTC REGISTERS TYPEDEFS //////////////////////////////////////////
+typedef struct{
+	union{
+		uint32_t reg32;
+		struct{
+			unsigned CENT:7;
+			unsigned :1;
+			unsigned YEAR:8;
+			unsigned MONTH:5;
+			unsigned DAY:3;
+			unsigned DATE:6;
+			unsigned :2;
+		};
+	};
+}t_RTC_CALR;
+
+typedef struct{
+	union{
+		uint32_t reg32;
+		struct{
+			unsigned SEC:7;
+			unsigned :1;
+			unsigned MIN:7;
+			unsigned :1;
+			unsigned HOUR:6;
+			unsigned AMPM:1;
+			unsigned :9;
+		};
+		struct{
+			unsigned SEC_QL:4;
+			unsigned SEC_QH:3;
+			unsigned :1;
+			unsigned MIN_QL:4;
+			unsigned MIN_QH:3;
+			unsigned :1;
+			unsigned HOUR_QL:4;
+			unsigned HOUR_QH:2;
+			unsigned :1;
+			unsigned :9;
+		};
+	};
+}t_RTC_TIMR;
+
+void send(uint32_t sc, void*pParam)
+{
+	char *pToken;
+	pToken = mstrtok(NULL," \r\n");
+	if(pToken)
+	{
+		switch(CRC16MODBUSFRAME((unsigned char*)pToken,strlen(pToken)))
+		{
+		case 0xB340:		//synchro
+			Putstr("\r\n\tBroadcast synchronization token\r\n");
+			registerValue[0]=RTC->RTC_TIMR;
+			if((((t_RTC_TIMR*)&registerValue[0])->SEC_QL+=2)>9)
+			{
+				((t_RTC_TIMR*)&registerValue[0])->SEC_QL=0;
+				if((((t_RTC_TIMR*)&registerValue[0])->SEC_QH++)>5)
+				{
+					((t_RTC_TIMR*)&registerValue[0])->SEC_QH=0;
+					if((((t_RTC_TIMR*)&registerValue[0])->MIN_QL++)>9)
+					{
+						((t_RTC_TIMR*)&registerValue[0])->MIN_QL=0;
+						if((((t_RTC_TIMR*)&registerValue[0])->MIN_QH++)>5)
+						{
+							((t_RTC_TIMR*)&registerValue[0])->MIN_QH=0;
+							if((((t_RTC_TIMR*)&registerValue[0])->HOUR_QL++)>9)
+							{
+								((t_RTC_TIMR*)&registerValue[0])->HOUR_QL=0;
+								if((((t_RTC_TIMR*)&registerValue[0])->HOUR_QH++)>2)
+								{
+									((t_RTC_TIMR*)&registerValue[0])->HOUR_QH=0;
+								}
+							}
+						}
+					}
+				}
+			}
+			registerValue[1]=RTC->RTC_CALR;
+			WriteMultipleRegisters(MODBUS_BROADCAST_ADDRESS,0x1000,4,registerValue); 
+			break;
+		default:
+			break;
+		}
+	}
+	mstrtokRestore();
 }

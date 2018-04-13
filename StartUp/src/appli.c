@@ -4,11 +4,9 @@
  * Created: 14/03/2018 08:20:14
  *  Author: Thierry
  */ 
-
 #include "appli.h"
 
 #define ST_APPLI_IS_MENU_EDITING		0x0000001
-
 
 struct {
 	uint32_t status;
@@ -19,7 +17,6 @@ struct {
 enum{
 	_APPLI_TIMER=1,
 };
-
 
 uint32_t Appli(uint32_t sc, ...)
 {
@@ -51,7 +48,6 @@ uint32_t Appli(uint32_t sc, ...)
 		Putstr("\r\n\n\t*______________ CPU.ACX-ATSAM3U4CA-AU ______________*\r\n\n");
 		LcdPutstr("CPU.ACX  ATSAM3U4C",2,1);
 		LcdPutstr("www.a-2-s.net",3,4);
-		
 		break;
 
 	case APPLI_SET_BUTTON_TIMEOUT:
@@ -77,9 +73,6 @@ uint32_t Appli(uint32_t sc, ...)
 	default:
 		Error(ERROR_APPLI_SWITCH_BAD_SC,sc);
 	}
-
 	//DEFAULT RETURN VALUE////////////////////////////////////////////////////////////////
 	return 0;
 }
-
-

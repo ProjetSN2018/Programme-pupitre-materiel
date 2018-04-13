@@ -10,7 +10,6 @@
 
 #define LCD_PIN_IN_FLAGS			(PIO_TYPE_PIO_INPUT | PIO_DEFAULT)
 
-
 #define LCD_DB4						(PIO_PA0_IDX)
 #define LCD_DB4_NAME				"LCD_DB4"
 
@@ -49,7 +48,6 @@
 #define LCD_DB3_NAME				"LCD_DB3"
 
 #endif
-
 
 ///LCD PRIVATE SERVICE CODES////////////////////////////////////////
 enum{
@@ -153,23 +151,26 @@ uint32_t Lcd(uint32_t sc, ...)
 		return (uint32_t)(mIsBitsSet(lcd.status,ST_LCD_ON));
 		//no break;
 
+	case LCD_PUTCH:
+#define _ch			pa1
+#define _line		pa2
+#define _col		pa3
+		_LcdSetCursor(_line,_col);
+		_LcdWriteData(_ch);
+#undef _ch
+#undef _line
+#undef _col
+break;
+
 	case LCD_PUTSTR:
 #define _str		pa1
 #define _line		pa2
 #define _col		pa3
-		//On efface la ligne
-		_LcdSetCursor(_line,0);
-		for(int i=0;i<20;i++)
-		{
-			_LcdWriteData(' ');
-		}
-		//On écrit
 		_LcdSetCursor(_line,_col);
 		while(*(char*)_str)
 		{
 			_LcdWriteData(*(char*)_str++);
 		}
-		//
 #undef _str
 #undef _line
 #undef _col
@@ -236,12 +237,12 @@ uint32_t Lcd(uint32_t sc, ...)
 
 #define _len (unsigned)pa1
 
-			col = 20 - _len;
-			col = col/2;
-			return col;
+	col = 20 - _len;
+	col = col/2;
+	return col;
 
 #undef _len
-		break;
+	break;
 
 	case _LCD_E_STROBE:
 		delay_us(500);
@@ -270,8 +271,7 @@ uint32_t Lcd(uint32_t sc, ...)
 #undef _nLine
 #undef _nCol
 		break;
-
-
+		
 	case _LCD_IS_BUSY:
 		break;
 #define _lcdStatus	sc
@@ -327,4 +327,12 @@ uint32_t Lcd(uint32_t sc, ...)
 		Error(ERROR_LCD_SWITCH_BAD_SC,sc);
 	}
 	return 0;
+}
+
+uint8_t LcdFindHalf(uint32_t len)
+{
+	float col;
+	col = 20 - len;
+	col = col/2;
+	return col;
 }

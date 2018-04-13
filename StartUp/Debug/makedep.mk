@@ -4,7 +4,37 @@
 
 src\appli.c
 
+src\ASF\common\services\freertos\sam\freertos_peripheral_control.c
+
+src\ASF\common\services\freertos\sam\freertos_uart_serial.c
+
+src\ASF\common\services\serial\usart_serial.c
+
 src\ASF\sam\drivers\chipid\chipid.c
+
+src\ASF\sam\drivers\pdc\pdc.c
+
+src\ASF\sam\drivers\usart\usart.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\list.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\gcc\sam\port.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\heap_4.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\queue.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\tasks.c
+
+src\ASF\thirdparty\freertos\freertos-7.3.0\source\timers.c
+
+src\kernel\comRS485.c
+
+src\kernel\modbus.c
+
+src\kernel\stack.c
 
 src\menu.c
 

@@ -12,7 +12,8 @@ const t_command_entry commands[]={
 	//{0x6CAB, (t_pCmdFunc)set     },    //command set
 	{0x624F, (t_pCmdFunc)start		},	//command start
 	{0xAE76, (t_pCmdFunc)stop		},	//command stop
-
+	{0x3427, (t_pCmdFunc)send		},	//command send
+	
 
 	////////////////// LIST TERMINATOR ////////////////////////////////
 	{0x0000, NULL           } //Don't remove!

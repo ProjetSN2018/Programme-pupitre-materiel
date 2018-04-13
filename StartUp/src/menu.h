@@ -22,4 +22,6 @@
  #define PIN_BUTTON_SELECT		PIO_PA9
  #define PIN_BUTTON_BACK		PIO_PA8
 
+ #define MENU_DEPTH_VALUE		10
+ #define MENU_ELEM_SIZE			(sizeof(void*)+sizeof(int))
  uint32_t Menu(uint32_t sc, ...);

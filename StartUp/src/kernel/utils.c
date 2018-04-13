@@ -16,7 +16,6 @@ char _IsSeparator(char ch, const char*pSep);
 static char     _chEndToken  = '\0';
 static char*    _pEndToken = NULL;
 
-
 char* mstrtok(char*pStr,const char*pSep)
 {
     static char*pToken=NULL;
@@ -55,13 +54,8 @@ void  mstrtokReset(void)
     _pEndToken = NULL;
 }
 
-
 char _IsSeparator(char ch, const char*pSep)
 {
     while(*pSep && (*pSep!=ch)) pSep++;
     return *pSep;
 }
-
-
-
-/* [] END OF FILE */

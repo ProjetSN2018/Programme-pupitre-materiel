@@ -4,13 +4,13 @@
  * Created: 11/03/2018 01:27:13
  *  Author: Thierry
  */
-
 #include "kernel.h"
 #include "CRC16MODBUS.h"
 #include "utils.h"
 
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 const t_command_entry cmdEntries[]={
 
@@ -22,11 +22,10 @@ const t_command_entry cmdEntries[]={
 	{0x902B, (t_pCmdFunc)_cmd_restart	},
 	{0xB344, (t_pCmdFunc)_cmd_restart	}, //0xB344 => reboot
 	{0xEBE8, (t_pCmdFunc)_cmd_infos		},
-	{0x10E1, (t_pCmdFunc)_cmd_menu		},
+
 	//----------------------//
 	{0x0000, NULL       }
 };
-
 
 #define ST_SHELL_SHOW_UNKNOW_CRC		0x000002
 #define ST_SHELL_PROMPT_DISABLED        0x000004
@@ -130,36 +129,6 @@ void _cmd_set(uint32_t sc, void*pParam)
 	}
 }
 
-void _cmd_menu(uint32_t sc, void*pParam)
-{
-	uint16_t crc;
-#define pToken sc
-	pToken = (uint32_t)strtok(pParam, " \r\n");
-	if(pToken)
-	{
-		crc = CRC16MODBUSFRAME((unsigned char*)pToken, strlen((char*)pToken));
-		switch(crc)
-		{
-		case 0x8B8B:			//switch
-			
-			Menu(MENU_SWITCH_BUTTON);
-			Menu(MENU_PROMPT);
-			break;
-		case 0x8862:			//select
-			Menu(MENU_SELECT_BUTTON);
-			break;
-		case 0x1252:
-			Menu(MENU_INIT);
-
-			break;
-		default:
-			Error(ERROR_SHELL_CMD_MENU_SWITCH_BAD_SC, sc);
-			break;
-		}
-#undef pToken
-	}
-
-}
 void _cmd_restart_proc(uint32_t sc, uint32_t timeout);
 
 void _cmd_restart_proc(uint32_t sc, uint32_t timeout)
@@ -167,8 +136,9 @@ void _cmd_restart_proc(uint32_t sc, uint32_t timeout)
 	mBitsSet(*(uint16_t*)sc,ST_SHELL_PROMPT_DISABLED);
 	sprintf(buf,"\rSystem will restart in %i second...",(int)timeout); Putstr(buf);
 	if(timeout==0)
-	{
-		for(sc=100000;sc;sc--);
+	{	
+		Putstr("\r\n\n");
+		for(sc=500000;sc;sc--);
 		rstc_start_software_reset(RSTC);
 		for(;;);
 	}
@@ -177,7 +147,6 @@ void _cmd_restart_proc(uint32_t sc, uint32_t timeout)
 		PushTask(_cmd_restart_proc,sc,--timeout,1000);	
 	}
 }
-
 
 void _cmd_restart(uint32_t sc, void*pParam)
 {

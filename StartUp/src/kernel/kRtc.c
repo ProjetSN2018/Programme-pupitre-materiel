@@ -11,7 +11,6 @@
 */
 #include "kernel.h"
 
-
 //Private Service Codes ///////////////////////////////////////////////////////
 
 enum{
@@ -100,7 +99,6 @@ typedef struct{
 
 #define _rtcCalr	((t_RTC_CALR*)&RTC->RTC_CALR)
 #define _rtcTimr	((t_RTC_TIMR*)&RTC->RTC_TIMR)
-
 
 uint32_t kRtc(uint32_t sc,...)
 {
@@ -250,7 +248,6 @@ uint32_t kRtc(uint32_t sc,...)
 #undef _month
 #undef _hour
 		//no break;
-
 
 	/////// INVALID SC CODE TRAP ERROR /////////////////////////////////////////////////////////////////
 	default:

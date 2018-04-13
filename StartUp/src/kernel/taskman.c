@@ -23,7 +23,7 @@ struct{
 	t_task* pPop;
 }taskman;
 
-///////// editTimer TICK INITIALIZER //////////////////////////////////////////
+///////// TIMER TICK INITIALIZER //////////////////////////////////////////
 static void TCWaveformInitialize(void);
 
 //Use TC Peripheral 0 ///////////////////////////////////////////////
@@ -36,17 +36,15 @@ static void TCWaveformInitialize(void);
 #define PIN_TC_WAVEFORM					(PIO_PA1_IDX)
 #define PIN_TC_WAVEFORM_MUX				(IOPORT_MODE_MUX_A)
 
-#define TC_WAVEFORM_editTimer_SELECTION		TC_CMR_TCCLKS_editTimer_CLOCK4
+#define TC_WAVEFORM_TIMER_SELECTION		TC_CMR_TCCLKS_TIMER_CLOCK4
 #define TC_WAVEFORM_DIVISOR				128
 #define TC_WAVEFORM_FREQUENCY			1000
 #define TC_WAVEFORM_DUTY_CYCLE			30
-
 
 ///////// PRIVATE SERVICES CODES //////////////////////////////////////////
 enum{
 	_TASKMAN_DELAYED_TASK_PROC	= 1
 };
-
 
 uint32_t Taskman(uint32_t sc, ...)
 {
@@ -59,7 +57,7 @@ uint32_t Taskman(uint32_t sc, ...)
 		{
 			dTasks[k].delay=0;
 		}
-		//// editTimer TICK CONFIGURATION //////////////////////////////////////////////
+		//// TIMER TICK CONFIGURATION //////////////////////////////////////////////
 		ioport_set_pin_mode(PIN_TC_WAVEFORM, PIN_TC_WAVEFORM_MUX);
 		ioport_disable_pin(PIN_TC_WAVEFORM);
 
@@ -129,7 +127,6 @@ uint32_t Taskman(uint32_t sc, ...)
 		cpu_irq_leave_critical();
 		break;
 
-
 	////////// PRIVATE SERVICES IMPLEMENTATION ///////////////////////////////////////////
 	case _TASKMAN_DELAYED_TASK_PROC:
 #define k sc
@@ -158,24 +155,24 @@ uint32_t Taskman(uint32_t sc, ...)
 	return 0;
 }
 
+/////////////////////////////////////////// TIMER TICK ISR HANDLER ////////////////////////////////////////////////////
+enum{
+	_SHELL_TIMER = 3
+};
 
-void TC0_Handler(void) //Each ms we come here....
+enum{
+	_COMRS485_TIMER = 1
+};
+
+void TC0_Handler(void)
 {
-	uint8_t	k=0;
 	tc_get_status(TC, TC_CHANNEL_WAVEFORM);
 	Taskman(_TASKMAN_DELAYED_TASK_PROC);
-	
-	Shell(__TIMER_CALL_SERVICE);
-
-	while(timerCallMap[k])
-	{
-		timerCallMap[k](__TIMER_CALL_SERVICE);
-		k++;
-	}
+	Shell(_SHELL_TIMER);
+	ComRS485(_COMRS485_TIMER);
 }
 
-
-/////////////////////////////////////////// editTimer TICK INITIALIZER ////////////////////////////////////////////////////
+/////////////////////////////////////////// TIMER TICK INITIALIZER ////////////////////////////////////////////////////
 static void TCWaveformInitialize(void)
 {
 	uint32_t ra, rc;
@@ -187,7 +184,7 @@ static void TCWaveformInitialize(void)
 	tc_init(
 	TC,
 	TC_CHANNEL_WAVEFORM,
-	TC_WAVEFORM_editTimer_SELECTION	|	//Waveform Clock Selection
+	TC_WAVEFORM_TIMER_SELECTION	|	//Waveform Clock Selection
 	TC_CMR_WAVE |					//Waveform mode is enabled
 	TC_CMR_ACPA_SET |				//RA Compare Effect: set
 	TC_CMR_ACPC_CLEAR |				//RC Compare Effect: clear

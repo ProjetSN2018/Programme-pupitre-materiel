@@ -7,13 +7,12 @@
  */
 #include "appli.h"
 #include <stdio.h>
+#include "menu.h"
 
 char buf[256];
 
 void Sablier(uint32_t sc,...);
 #define SABLIER_NEW			100
-
-
 
 int main (void)
 {
@@ -32,9 +31,6 @@ int main (void)
 	PushTask(Appli,APPLI_NEW,0,0);
 	KernelRun();
 }
-
-
-
 
 void Sablier(uint32_t sc,...)
 {

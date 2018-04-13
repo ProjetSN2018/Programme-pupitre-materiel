@@ -4,7 +4,6 @@
  * Created: 10/03/2018 11:09:26
  *  Author: Thierry
  */
-
 #include "kernel.h"
 #include "CRC16MODBUS.h"
 #include "utils.h"
@@ -12,9 +11,9 @@
 
 ///////// PRIVATE SERVICES CODES //////////////////////////////////////////
 enum{
-	_SHELL_TIMER = __TIMER_CALL_SERVICE,
+	_SHELL_HEART_BEAT = 1,
 	_SHELL_KBHIT = 2,
-	_SHELL_HEART_BEAT = 3,
+	_SHELL_TIMER = 3,
 	_SHELL_PROMPT = 4,
 	_SHELL_PUT_ASCII_TO_HEX,
 	_SHELL_CHECK_SEPARATORS,
@@ -28,6 +27,7 @@ enum{
 const char separators[]=" .;:/\\\t\r\n";
 const char hexDigits[]="0123456789ABCDEF";
 const uint32_t heartBeatRhythm[]={ 40,254,40,1352,0 };
+const char restartTimeOut[]="3";
 
 char shellEditBuf[SHELL_EDITBUF_LEN+1];
 char shellEscapeBuf[SHELL_ESCSEQBUF_LEN];
@@ -91,10 +91,7 @@ uint32_t Shell(uint32_t sc, ...)
 		//LcdPutstr("Hello World!",3,3);
 		PushTask(Shell,_SHELL_HEART_BEAT,-1,0);
 		PushTask(Shell,_SHELL_PROMPT,0,0);
-		PushTask(Menu,MENU_NEW,0,0);
 		break;
-
-
 
 	////////// PRIVATE SERVICES IMPLEMENTATION //////////////////////////////////////////////////////////
 	case _SHELL_HEART_BEAT:
@@ -135,7 +132,6 @@ uint32_t Shell(uint32_t sc, ...)
 #undef _date
 #undef _day			
 		}
-			
 		break;
 
 	case _SHELL_KBHIT:
@@ -146,11 +142,11 @@ uint32_t Shell(uint32_t sc, ...)
 			switch(_kbhitchar)
 			{
 			case '\e':	//escape
-				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
+				shell.escapeTimer=SHELL_ESC_TIMEOUT;
 				shell.pEscbuf=shellEscapeBuf;
 				*shell.pEscbuf++='\e';
 				shell.nEscChar=1;
-				shell.crc=CRC16MODBUS('\e',0xFFFF);
+				shell.crc=CRC16MODBUSbyte('\e',0xFFFF);
 				shell.state=ESCAPE;
 				break;
 			case '\b':	//backspace : 0x08
@@ -165,7 +161,7 @@ uint32_t Shell(uint32_t sc, ...)
 				shell.pEdit=shellEditBuf;
 				*shell.pEdit++=_kbhitchar;
 				shell.nChar=1;
-				Putstr("\r\n>"); Putc(_kbhitchar);
+				Putstr("\r\n>"); Putch(_kbhitchar);
 				shell.state=EDITION;
 				break;
 			}
@@ -174,24 +170,26 @@ uint32_t Shell(uint32_t sc, ...)
 				shell.state=ESCAPE_SEQ;
 				//no break here to continue with ESCAPE_SEQ case !
 		case ESCAPE_SEQ:
-				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
+				shell.escapeTimer=SHELL_ESC_TIMEOUT;
 				*shell.pEscbuf++=_kbhitchar;
 				shell.nEscChar++;
-				shell.crc=CRC16MODBUS(_kbhitchar,shell.crc);
+				shell.crc=CRC16MODBUSbyte(_kbhitchar,shell.crc);
 			break;
+
 		case EDITION:
 			shell.editTimer=SHELL_EDIT_TIMEOUT;
 			switch(_kbhitchar)
 			{
 			case '\e':	//escape
-				shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
+				shell.escapeTimer=SHELL_ESC_TIMEOUT;
 				shell.editTimer=0;
 				shell.pEscbuf=shellEscapeBuf;
 				*shell.pEscbuf++='\e';
 				shell.nEscChar=1;
-				shell.crc=CRC16MODBUS('\e',0xFFFF);
+				shell.crc=CRC16MODBUSbyte('\e',0xFFFF);
 				shell.state=ED_ESCAPE;
 				break;
+
 			case '\t':	//tabulation
 			{
 				const char ctrl_right_arrow[]="\e[1;5C";
@@ -201,6 +199,7 @@ uint32_t Shell(uint32_t sc, ...)
 				shell.escapeTimer=1;	//Ask a ESC SEQUENCE timeout : treat as a "ctrl+right_arrow" key
 			}
 				break;
+
 			case '\b':	//backspace : 0x08
                 if(shell.nChar)
                 {
@@ -230,7 +229,7 @@ uint32_t Shell(uint32_t sc, ...)
 				{
 					ExitEditMode();
 					shell.state=IDLE;
-					Putc('\r');
+					Putch('\r');
 				}
 				else
 				{
@@ -244,7 +243,7 @@ uint32_t Shell(uint32_t sc, ...)
 				{
 					if(_kbhitchar!=0x20) //Excluding space char
 					{
-						Putc((*shell.pEdit++=_kbhitchar)); shell.nChar++;
+						Putch((*shell.pEdit++=_kbhitchar)); shell.nChar++;
 					}
 				}
 				else if(shell.nChar<(SHELL_EDITBUF_LEN))
@@ -252,7 +251,7 @@ uint32_t Shell(uint32_t sc, ...)
 					if(mIsBitsClr(shell.status,ST_SHELL_INSERT_MODE))
 					{//Replace mode
 						if(shell.pEdit==shellEditBuf+shell.nChar)	shell.nChar++;
-						Putc((*shell.pEdit++=_kbhitchar));
+						Putch((*shell.pEdit++=_kbhitchar));
 					}
 					else
 					{//Insert mode
@@ -267,7 +266,7 @@ uint32_t Shell(uint32_t sc, ...)
 #undef pDst
 						}
 #define k sc
-						Putc((*shell.pEdit++=_kbhitchar)); shell.nChar++;
+						Putch((*shell.pEdit++=_kbhitchar)); shell.nChar++;
 						k=Putstrlen(shell.pEdit,(shellEditBuf+shell.nChar-shell.pEdit));
 						while(k--) Putstr("\e[D");
 #undef k
@@ -287,7 +286,6 @@ uint32_t Shell(uint32_t sc, ...)
 			*shell.pEdit++='\0';
 			Putstr("\r\n/>");
 			Putstr(shellEditBuf);
-			
 #define pToken	sc
 			mstrtokReset();
 			pToken=mstrtok(shellEditBuf,(char*)" \r\n");
@@ -324,20 +322,23 @@ uint32_t Shell(uint32_t sc, ...)
 			shell.state=IDLE;
 			ExitEditMode();
 			break;
+
 		case ED_ESCAPE:
 			shell.state=ED_ESCAPE_SEQ;
 			//no break here to continue with ED_ESCAPE_SEQ case !
 		case ED_ESCAPE_SEQ:
-			shell.escapeTimer=SHELL_ESCAPE_TIMEOUT;
+			shell.escapeTimer=SHELL_ESC_TIMEOUT;
 			*shell.pEscbuf++=_kbhitchar;
 			shell.nEscChar++;
-			shell.crc=CRC16MODBUS(_kbhitchar,shell.crc);
+			shell.crc=CRC16MODBUSbyte(_kbhitchar,shell.crc);
 			break;
+
 		default:
 			Putstr("\r\n\t***** case _SHELL_KBHIT: BAD case! ******\r\n");
 			shell.state=IDLE;
 			ExitEditMode();
 			break;
+
 		}
 #undef _kbhitchar
 		break;
@@ -359,8 +360,8 @@ uint32_t Shell(uint32_t sc, ...)
 					switch(shell.crc)
 					{
 					case 0xC7F5:	//ctrl+shift+up_arrow
-						//PushTask(_cmd_restart,&shell,0,0);
-						shell.state=IDLE;
+						PushTask(_cmd_restart,&shell,restartTimeOut,0);
+						//shell.state=IDLE;
 						break;
 					case 0xC7FA:	//up_arrow
 						if(shell.nChar)
@@ -368,7 +369,7 @@ uint32_t Shell(uint32_t sc, ...)
 							EnterEditMode();
 							shell.editTimer=SHELL_EDIT_TIMEOUT;
 							shell.pEdit=shellEditBuf+shell.nChar;
-							Putstr("\r\n>");
+							Putstr("\r\n");
 							Putstrlen(shellEditBuf,shell.nChar);
 							shell.state=EDITION;
 						}
@@ -465,7 +466,7 @@ uint32_t Shell(uint32_t sc, ...)
 						shell.state=EDITION;
 #undef k
 						break;
-                    case 0xCCBA:    //shift+tabulate
+                    case 0xCCBA:    //shiht+tabulate
                     case 0x6F0E:    //ctrl+left arrow
 						if((shell.nChar&&(shell.pEdit==shellEditBuf+shell.nChar)) ||
 						(((shell.pEdit-1)>=shellEditBuf)&&(_IsSeparator(*(shell.pEdit-1),separators))&&(!_IsSeparator(*shell.pEdit,separators))))
@@ -513,7 +514,7 @@ uint32_t Shell(uint32_t sc, ...)
 					break;
 
 				default:
-					Error(SHELL_ESCAPE_TIMEOUT,shell.state); //ERROR_SHELL_TIMER_ESC_BAD_SATE
+					Error(ERROR_SHELL_TIMER_ESC_BAD_SATE,shell.state);
 				}
 			}
 		}
@@ -522,10 +523,6 @@ uint32_t Shell(uint32_t sc, ...)
         {
 	        if(--shell.editTimer==0)
 	        {
-			 shell.editTimer = shell.escapeTimer = 0;
-			 Putstr("\r\n\n");
-			 shell.state = IDLE;
-			 ExitEditMode();
 	        }
         }
 		break;
@@ -535,9 +532,9 @@ uint32_t Shell(uint32_t sc, ...)
 #define len pa2
 		while(len--)
 		{
-			Putc(hexDigits[*(char*)str>>4]);
-			Putc(hexDigits[*(char*)str&0x0F]);
-			Putc(' ');
+			Putch(hexDigits[*(char*)str>>4]);
+			Putch(hexDigits[*(char*)str&0x0F]);
+			Putch(' ');
 			str++;
 		}
 #undef str
@@ -552,6 +549,7 @@ uint32_t Shell(uint32_t sc, ...)
 #undef _ch
 #undef _pSep
 	    break;
+
 	case _SHELL_CLEANUP_CMDLINE:
 #define pSrc       sc
 #define k u1
@@ -591,21 +589,9 @@ uint32_t Shell(uint32_t sc, ...)
 #undef k
 		break;
 
-
 	/////// INVALID SC CODE TRAP ERROR /////////////////////////////////////////////////////////////////
 	default:
 		Error(ERROR_SHELL_SWITCH_BAD_SC,sc);
 	}
 	return 0;
 }
-
-uint16_t getShellStatus()
-{
-	return shell.status;
-}
-
-void setShellStatus(uint16_t sstatus)
-{
-	shell.status = sstatus;
-}
-
