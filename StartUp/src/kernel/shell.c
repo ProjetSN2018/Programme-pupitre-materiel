@@ -116,7 +116,7 @@ uint32_t Shell(uint32_t sc, ...)
 		if(IsLcdOn())
 		{
 			sprintf(shellTmpBuf,"%02d:%02d:%02d",(int)_hour,(int)_minute,(int)_second);
-			LcdPutstr(shellTmpBuf,1,6);
+			LcdPutstr(shellTmpBuf,0,11);
 #undef _hour
 #undef _minute
 #undef _second
@@ -126,7 +126,7 @@ uint32_t Shell(uint32_t sc, ...)
 #define _day	u2
 			rtc_get_date(RTC,&_year,&_month,&_date,&_day);
 			sprintf(shellTmpBuf,"%02d/%02d/%04d",(int)_date,(int)_month,(int)_year);
-			LcdPutstr(shellTmpBuf,0,5);
+			LcdPutstr(shellTmpBuf,0,10);
 #undef _year
 #undef _month
 #undef _date

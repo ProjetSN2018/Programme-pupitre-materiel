@@ -46,8 +46,7 @@ uint32_t Appli(uint32_t sc, ...)
 		gpio_configure_pin(IN_ENTREE_OPTION,	IN_ENTREE_OPTION_FLAGS);
 		
 		Putstr("\r\n\n\t*______________ CPU.ACX-ATSAM3U4CA-AU ______________*\r\n\n");
-		LcdPutstr("CPU.ACX  ATSAM3U4C",2,1);
-		LcdPutstr("www.a-2-s.net",3,4);
+		LcdPutstr("www.a-2-s.net",2,4);
 		break;
 
 	case APPLI_SET_BUTTON_TIMEOUT:

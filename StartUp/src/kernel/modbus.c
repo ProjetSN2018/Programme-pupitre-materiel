@@ -30,7 +30,8 @@ uint32_t Modbus(uint32_t sc,...)
 		if((modbus.moduleAddr=_moduleAddr)==0) 
 		{
 			mBitsSet(modbus.status,ST_MODULE_IS_MASTER);
-			LcdPutstr("MASTER", 3, 6);
+			
+			("MASTER", 3, 6);
 		}
 		else 
 		{
