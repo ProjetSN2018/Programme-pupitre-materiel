@@ -11,24 +11,28 @@ typedef struct tt_menu {																//On créé l'objet t_menu auquel on assig
 
 extern const t_menu _mainMenu[];														//Déclaration de l'objet _mainMenu
 extern const t_menu _modesMenu[];														//Déclaration de l'objet _modesMenu
-																						
+extern const t_menu _menuPairingUneP[];
+extern const t_menu _menuPairingDeuxP[];
+extern const t_menu _menuPairingTroisP[];
+extern const t_menu _OneDoorMenu[];
+extern 
 																						//Déclaration des fonctions liées aux menu		
-uint32_t _menuActualMode(uint32_t sc, ...);												//Fonction d'affichage du mode actuel
-uint32_t _ContrastControl(uint32_t sc, ...);											//Fonction de réglage du contraste
-uint32_t _VolumeControl(uint32_t sc, ...);												//Fonction de réglage du volume
-uint32_t _TimeSetting(uint32_t sc, ...);												//Fonction de réglage horaire
-uint32_t _menuDoorNumber(uint32_t sc, ...);												//Fonction qui gère le choix du nombre de porte
-uint32_t _menuPairing(uint32_t sc, ...);												//Fonction qui gère l'appairage
+//uint32_t _menuActualMode(uint32_t sc, ...);											//Fonction d'affichage du mode actuel
+//uint32_t _ContrastControl(uint32_t sc, ...);											//Fonction de réglage du contraste
+//uint32_t _VolumeControl(uint32_t sc, ...);											//Fonction de réglage du volume
+//uint32_t _TimeSetting(uint32_t sc, ...);												//Fonction de réglage horaire
+//uint32_t _menuDoorNumber(uint32_t sc, ...);											//Fonction qui gère le choix du nombre de porte
+//uint32_t _menuPairing(uint32_t sc, ...);												//Fonction qui gère l'appairage
 
-uint32_t _modeLibre(uint32_t sc, ...);													//Fonction qui gère le mode Libre
-uint32_t _modeLibreSES(uint32_t sc, ...);												//Fonction qui gère le mode LibreSES
-uint32_t _modeSortie(uint32_t sc, ...);													//Fonction qui gère le mode Sortie
-uint32_t _modeDeverrouillage(uint32_t sc, ...);											//Fonction qui gère le mode Deverrouillage
-uint32_t _modeBlocage(uint32_t sc, ...);												//Fonction qui gère le mode Blocage
-uint32_t _modeControle(uint32_t sc, ...);												//Fonction qui gère le mode Controle
-uint32_t _modeControleE(uint32_t sc, ...);												//Fonction qui gère le mode ControleE
-uint32_t _modeControleES(uint32_t sc, ...);												//Fonction qui gère le mode ControleES
-uint32_t _modeCtrlPerso(uint32_t sc, ...);												//Fonction qui gère le mode CtrlPerso
+//uint32_t _modeLibre(uint32_t sc, ...);												//Fonction qui gère le mode Libre
+//uint32_t _modeLibreSES(uint32_t sc, ...);												//Fonction qui gère le mode LibreSES
+//uint32_t _modeSortie(uint32_t sc, ...);												//Fonction qui gère le mode Sortie
+//uint32_t _modeDeverrouillage(uint32_t sc, ...);										//Fonction qui gère le mode Deverrouillage
+//uint32_t _modeBlocage(uint32_t sc, ...);												//Fonction qui gère le mode Blocage
+//uint32_t _modeControle(uint32_t sc, ...);												//Fonction qui gère le mode Controle
+//uint32_t _modeControleE(uint32_t sc, ...);											//Fonction qui gère le mode ControleE
+//uint32_t _modeControleES(uint32_t sc, ...);											//Fonction qui gère le mode ControleES
+//uint32_t _modeCtrlPerso(uint32_t sc, ...);											//Fonction qui gère le mode CtrlPerso
 
 //const t_menu _menuName[] = {
 //{"Affichage 1",	_menuParent,		_sousMenu,			_fonctionMenu },			//Template d'une déclaration de menu
@@ -37,22 +41,43 @@ uint32_t _modeCtrlPerso(uint32_t sc, ...);												//Fonction qui gère le mod
 //{ NULL, NULL, NULL	}																//Tout les menu se terminent par un NULL sur chaque champ
 //};
 
+const t_menu _menuPairingUneP[] = {		//menu d'appairage une porte									
+	{"menu d'appairage",_doorNumberMenu,	_OneDoorMenu,		NULL},					
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
+	{ NULL, NULL, NULL	}
+};
+
+const t_menu _menuPairingDeuxP[] = {		//menu d'appairage deux portes 
+	{"menu d'appairage",_doorNumberMenu,	_TwoDoorMenu,		NULL},
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
+	{ NULL, NULL, NULL	}
+};
+
+const t_menu _menuPairingTroisP[] = {		//menu d'appairage trois portes
+	{"menu d'appairage",_doorNumberMenu,	_ThreeDoorMenu,		NULL},
+	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
+	//////////////////////////////////////////////////////////////////////////////////
+	{ NULL, NULL, NULL	}
+};
+
 const t_menu _doorNumberMenu[] = {	//Nombre de porte									//Menu permettant de choisir le nombre de porte
-	{"1 porte",			_mainMenu,			NULL,				_menuPairing},			//1 porte, amène vers la fonction d'appairage
-	{"2 portes",		_mainMenu,			NULL,				_menuPairing},			//2 portes, amène vers la fonction d'appairage
-	{"3 portes ou plus",_mainMenu,			NULL,				_menuPairing},			//3 portes ou plus, amène vers la fonction d'appairage
+	{"1 porte",			_technicianMenu,	_menuPairingUneP,	NULL},					//1 porte, amène vers la fonction d'appairage
+	{"2 portes",		_technicianMenu,	_menuPairingDeuxP,	NULL},					//2 portes, amène vers la fonction d'appairage
+	{"3 portes ou plus",_technicianMenu,	_menuPairingTroisP,	NULL},					//3 portes ou plus, amène vers la fonction d'appairage
 	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}																
 };
 
 const t_menu _OneDoorMenu[] = {		//Choix des modes 1 porte							//Menu permettant de choisir le mode pour le cas où il n'y a qu'une porte
-	{"Libre",			_doorNumberMenu,	NULL,				_modeLibre},			//Mode Libre, amène vers la fonction de mode Libre
-	{"Sortie",			_doorNumberMenu,	NULL,				_modeSortie},			//Mode Sortie, amène vers la fonction de mode Sortie
-	{"Déverrouillage",	_doorNumberMenu,	NULL,				_modeDeverrouillage},	//Mode Déverrouillage, amène vers la fonction de mode Déverrouillage
-	{"Blocage",			_doorNumberMenu,	NULL,				_modeBlocage},			//Mode Blocage, amène vers la fonction de mode Blocage
-	{"Contrôle Entrée",	_doorNumberMenu,	NULL,				_modeControleE},		//Mode Contrôle Entrée, amène vers la fonction de mode Contrôle Entrée
-	{"Contrôle E/S",	_doorNumberMenu,	NULL,				_modeControleES},		//Mode Contrôle E/S, amène vers la fonction de mode Contrôle E/S
+	{"Libre",			_menuPairingUneP,	NULL,				_modeLibre},			//Mode Libre, amène vers la fonction de mode Libre
+	{"Sortie",			_menuPairingUneP,	NULL,				_modeSortie},			//Mode Sortie, amène vers la fonction de mode Sortie
+	{"Déverrouillage",	_menuPairingUneP,	NULL,				_modeDeverrouillage},	//Mode Déverrouillage, amène vers la fonction de mode Déverrouillage
+	{"Blocage",			_menuPairingUneP,	NULL,				_modeBlocage},			//Mode Blocage, amène vers la fonction de mode Blocage
+	{"Contrôle Entrée",	_menuPairingUneP,	NULL,				_modeControleE},		//Mode Contrôle Entrée, amène vers la fonction de mode Contrôle Entrée
+	{"Contrôle E/S",	_menuPairingUneP,	NULL,				_modeControleES},		//Mode Contrôle E/S, amène vers la fonction de mode Contrôle E/S
 	
 	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -60,14 +85,14 @@ const t_menu _OneDoorMenu[] = {		//Choix des modes 1 porte							//Menu permetta
 };
 
 const t_menu _TwoDoorMenu[] = {		//Choix des modes 2 portes							//Menu permettant de choisir le mode pour le cas où il y deux portes
-	{"Libre",			_mainMenu,			NULL,				_modeLibre},			//Mode Libre, amène vers la fonction de mode Libre
-	{"LibreSES",		_mainMenu,			NULL,				_modeLibreSES},			//Mode LibreSES, amène vers la fonction de mode LibreSES
-	{"Sortie",			_mainMenu,			NULL,				_modeSortie},			//Mode Sortie, amène vers la fonction de mode Sortie
-	{"Déverrouillage",	_mainMenu,			NULL,				_modeDeverrouillage},	//Mode Déverrouillage, amène vers la fonction de mode Déverrouillage
-	{"Blocage",			_mainMenu,			NULL,				_modeBlocage},			//Mode Blocage, amène vers la fonction de mode Blocage
-	{"Ctrl P1/P2 E",	_mainMenu,			NULL,				_modeControleE},		//Mode ControleE, amène vers la fonction de mode ControleE
-	{"Ctrl P1/P2 E/S",	_mainMenu,			NULL,				_modeControleES},		//Mode ControleES, amène vers la fonction de mode ControleES
-	{"Ctrl P2",			_mainMenu,			NULL,				_modeControle},			//Mode Controle, amène vers la faction de mode Controle P2
+	{"Libre",			_menuPairingDeuxP,	NULL,				_modeLibre},			//Mode Libre, amène vers la fonction de mode Libre
+	{"LibreSES",		_menuPairingDeuxP,	NULL,				_modeLibreSES},			//Mode LibreSES, amène vers la fonction de mode LibreSES
+	{"Sortie",			_menuPairingDeuxP,	NULL,				_modeSortie},			//Mode Sortie, amène vers la fonction de mode Sortie
+	{"Déverrouillage",	_menuPairingDeuxP,	NULL,				_modeDeverrouillage},	//Mode Déverrouillage, amène vers la fonction de mode Déverrouillage
+	{"Blocage",			_menuPairingDeuxP,	NULL,				_modeBlocage},			//Mode Blocage, amène vers la fonction de mode Blocage
+	{"Ctrl P1/P2 E",	_menuPairingDeuxP,	NULL,				_modeControleE},		//Mode ControleE, amène vers la fonction de mode ControleE
+	{"Ctrl P1/P2 E/S",	_menuPairingDeuxP,	NULL,				_modeControleES},		//Mode ControleES, amène vers la fonction de mode ControleES
+	{"Ctrl P2",			_menuPairingDeuxP,	NULL,				_modeControle},			//Mode Controle, amène vers la faction de mode Controle P2
 	
 	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -75,20 +100,19 @@ const t_menu _TwoDoorMenu[] = {		//Choix des modes 2 portes							//Menu permett
 };
 
 const t_menu _ThreeDoorMenu[] = {	//Choix des modes 3 portes ou plus					//Menu permettant de choisir le mode pour le cas où il y a trois portes ou plus
-	{"Libre",					_mainMenu,			NULL,		_modeLibre},			//Mode Libre,
-	{"LibreSES",				_mainMenu,			NULL,		_modeLibreSES},			//Mode LibreSES,
-	{"Sortie",					_mainMenu,			NULL,		_modeSortie},			//Mode Sortie,
-	{"Déverrouillage",			_mainMenu,			NULL,		_modeDeverrouillage},	//Mode Déverrouillage,
-	{"Blocage",					_mainMenu,			NULL,		_modeBlocage},			//Mode Blocage,
-	{"Contrôle personnalisé",	_mainMenu,			NULL,		_modeCtrlPerso},		//Mode Contrôle personnalisé,
+	{"Libre",					_menuPairingTroisP,	NULL,		_modeLibre},			//Mode Libre,
+	{"LibreSES",				_menuPairingTroisP,	NULL,		_modeLibreSES},			//Mode LibreSES,
+	{"Sortie",					_menuPairingTroisP,	NULL,		_modeSortie},			//Mode Sortie,
+	{"Déverrouillage",			_menuPairingTroisP,	NULL,		_modeDeverrouillage},	//Mode Déverrouillage,
+	{"Blocage",					_menuPairingTroisP,	NULL,		_modeBlocage},			//Mode Blocage,
+	{"Contrôle personnalisé",	_menuPairingTroisP,	NULL,		_modeCtrlPerso},		//Mode Contrôle personnalisé,
 	//Affichage LCD,			Menu précédent,		Sous-menu,	Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}
 };
 
 const t_menu _technicianMenu[] = {	//Mode technicien
-	{"Nombre de porte :",_modesMenu,		NULL,				_menuDoorNumber },		//Menu permettant de choisir le nombre de porte
-	{"Appairage :",		_modesMenu,			NULL,				_menuPairing },			//Menu permettant de lancer l'appairage des cartes
+	{"Nombre de porte :",_modesMenu,		_doorNumberMenu,	NULL },					//Menu permettant de choisir le nombre de porte
 	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
 	{ NULL, NULL, NULL	}
@@ -102,7 +126,7 @@ const t_menu _modesMenu[] = {		//Affichage mode
 };
 
 const t_menu _mainMenu[] = {		//ACCUEIL
-	{"Mode technicien",	NULL,				_doorNumberMenu,	NULL },					//Menu permettant de passer en mode technicien
+	{"Mode cvbngtechnicien",	NULL,				_technicianMenu,	NULL },					//Menu permettant de passer en mode technicien
 	{"Mode normal",		NULL,				_modesMenu,			NULL },					//Menu permettant de passer en mode normal (non technicien)
 	//Affichage LCD,	Menu précédent,		Sous-menu,			Fonction de ce champ//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -149,43 +173,42 @@ uint32_t Menu(uint32_t sc, ...)
 		
 		case MENU_SWITCH_BUTTON:				//Quand appui sur le bouton Gauche
 			menu.iIndexMenu++;					//On incrémente l'index pour parcourir les sélections possibles
-			if(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel == NULL) menu.iIndexMenu = 0;	
-			Menu(MENU_PROMPT);
+			if(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel == NULL) menu.iIndexMenu = 0;	//Une fois qu'on arrive a la fin des sélections possibles, on remet l'index à 0
+			Menu(MENU_PROMPT);					//On affiche le menu avec les changements apportés
 		break;
+		
 		case MENU_SELECT_BUTTON:			//Quand appui bouton Milieu
-		if(menu.pCurrentMenu[menu.iIndexMenu].pMenuFunc)
-		{
-			menu.pCurrentMenu[menu.iIndexMenu].pMenuFunc(0);
-		}
-		else if(menu.pCurrentMenu[menu.iIndexMenu].pSubMenu)
-		{
-			menu.pCurrentMenu = menu.pCurrentMenu[menu.iIndexMenu].pSubMenu;
-			menu.iIndexMenu = 0;
-			Menu(MENU_PROMPT);
-		}
+			if(menu.pCurrentMenu[menu.iIndexMenu].pMenuFunc)
+			{
+				menu.pCurrentMenu[menu.iIndexMenu].pMenuFunc(0);		//Si une fonction est disponible pour le menu actuel, on lance cette fonction
+			}
+			else if(menu.pCurrentMenu[menu.iIndexMenu].pSubMenu)		//Si un sous-menu est disponible, on va sur ce sous-menu
+			{
+				menu.pCurrentMenu = menu.pCurrentMenu[menu.iIndexMenu].pSubMenu;
+				menu.iIndexMenu = 0;									//On remet l'index à 0
+				Menu(MENU_PROMPT);				//On affiche le menu avec les changements apportés
+			}
 		break;
+		
 		case MENU_BACK_BUTTON:				//Quand appui bouton Droite
-		if(menu.pCurrentMenu[menu.iIndexMenu].pParentMenu)
-		{
-			menu.pCurrentMenu = menu.pCurrentMenu[menu.iIndexMenu].pParentMenu;
-			menu.iIndexMenu = 0;
-			Menu(MENU_PROMPT);
-		}
+			if(menu.pCurrentMenu[menu.iIndexMenu].pParentMenu)			//Si le menu possède un menu parent,
+			{
+				menu.pCurrentMenu = menu.pCurrentMenu[menu.iIndexMenu].pParentMenu;	//On ramène l'index sur ce menu parent
+				menu.iIndexMenu = 0;												//On remet l'index à 0
+				Menu(MENU_PROMPT);				//On affiche le menu avec les changements apportés
+			}
 		break;
 
 		case MENU_PROMPT:
-		SetButtonTimeout();
-		Putstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel);
-		LcdPutstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel,2,LcdFindCenter(strlen(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel)));
+		//SetButtonTimeout();			
+		Putstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel);	//Affichage du menu actuel pour la console
+		LcdPutstr(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel,2,LcdFindCenter(strlen(menu.pCurrentMenu[menu.iIndexMenu].pMenuLabel))); //Affichage centré des lignes du menu
 		setShellStatus(ST_MENU_MENU);
 		break;
-		case MENU_INIT:
-		
-		break;
-		
-		case MENU_RETURN_HOME:
-		LcdPutstr("www.A-2-S.fr",2,1);
-		LcdPutstr("Naviguer  Select  Back",3,0);
+				
+		case MENU_RETURN_HOME:		//Affichage lors du retour au menu principal
+			LcdPutstr("www.A-2-S.fr",2,1);
+			LcdPutstr("Naviguer  Select  Back",3,0);
 		break;
 
 		default:
